@@ -7,7 +7,7 @@ const DIR_FORWARD = 0
 const DIR_BACKWARD = 1
 
 #region constants
-const SPEED = 50
+const SPEED = 150
 const MIN_SEPARATION = 64
 
 const COLOR_RED = 0
