@@ -1,5 +1,28 @@
-[gd_scene format=1]
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://levels/level.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = { "points":Vector2Array( 0, 0, 101.784, -74.0247, -69.2684, 670.422, -20.3568, 166.556, 53.6679, -164.705, 258.291, 265.137, -75.8753, 20.3568, 199.867, -42.5642, 448.905, 37.5111, -166.556, 31.4605, 149.9, -25.9086, 876.397, 588.995, -74.0247, 122.141, 57.3692, -112.888, 1039.25, 263.286, 0, 0, 0, 0, 1248.37, 163.353 ) }
 
 [node name="level" type="Node2D"]
+
+script/script = ExtResource( 1 )
+path1 = NodePath("Path2D")
+path2 = null
+path3 = null
+ball_scn = null
+colors = 7
+
+[node name="Path2D" type="Path2D" parent="."]
+
+curve = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
 
 
