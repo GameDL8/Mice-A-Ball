@@ -3,7 +3,6 @@
 [ext_resource path="res://systems/player/player.gd" type="Script" id=1]
 [ext_resource path="res://systems/player/bad_drawn_mice.png" type="Texture" id=2]
 
-
 [sub_resource type="SpriteFrames" id=1]
 
 frames = [ ExtResource( 2 ) ]

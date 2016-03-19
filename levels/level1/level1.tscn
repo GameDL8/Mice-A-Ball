@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
-[ext_resource path="res://systems/ball/ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -18,8 +17,7 @@ _data = { "points":Vector2Array( 0, 0, -140.647, 35.1618, 1370.93, 176.007, 49.9
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-ball_scn = ExtResource( 2 )
-colors = 13
+colors = 14
 color_generator_amounts = null
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -52,7 +50,7 @@ shadow/buffer_size = 2048
 shadow/esm_multiplier = 80.0
 shadow/item_mask = 1
 
-[node name="player" parent="." instance=ExtResource( 3 )]
+[node name="player" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 521.874, 571.841 )
 
