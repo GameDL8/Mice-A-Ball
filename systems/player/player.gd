@@ -4,6 +4,8 @@ extends Node2D
 #region variables
 var ball_scn=preload("res://systems/ball/ball.tscn")
 
+onready var anim = get_node("AnimationPlayer")
+
 var curr_color setget set_curr_color,get_curr_color
 onready var curr_color_sprite = get_node("current")
 
@@ -53,4 +55,5 @@ func shoot():
 	self.curr_color = next_color
 	self.next_color = randi() % 4
 	get_tree().get_root().call_deferred("add_child",ball)
+	anim.play("shoot")
 	
