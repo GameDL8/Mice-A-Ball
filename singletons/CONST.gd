@@ -14,8 +14,10 @@ const STATE_LOSE = 1
 const STATE_WIN = 2
 
 #region constants
-const SPEED = 150
+const SPEED = 100
 const MIN_SEPARATION = 64
+const SHOOT_SPEED = 200
+const FAST_SHOOT_SPEED = 250
 
 const COLOR_RED = 0
 const COLOR_GREEN = 1

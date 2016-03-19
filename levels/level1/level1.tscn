@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://systems/ball/ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://systems/mice/mice.tscn" type="PackedScene" id=3]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -52,9 +52,8 @@ shadow/buffer_size = 2048
 shadow/esm_multiplier = 80.0
 shadow/item_mask = 1
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 3 )]
+[node name="player" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 490.957, 641.591 )
-collision/margin = 0.08
+transform/pos = Vector2( 521.874, 571.841 )
 
 

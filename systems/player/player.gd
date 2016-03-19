@@ -1,5 +1,5 @@
 
-extends KinematicBody2D
+extends Node2D
 
 # member variables here, example:
 # var a=2
