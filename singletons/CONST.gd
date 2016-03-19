@@ -2,9 +2,16 @@ tool
 
 extends Node
 
+#region DEBUG
+const DEBUG = true
+
 #region enum
 const DIR_FORWARD = 0
 const DIR_BACKWARD = 1
+
+const STATE_PLAYING = 0
+const STATE_LOSE = 1
+const STATE_WIN = 2
 
 #region constants
 const SPEED = 150

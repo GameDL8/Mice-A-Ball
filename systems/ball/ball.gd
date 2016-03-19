@@ -20,6 +20,12 @@ func get_color():
 	return color
 
 func set_offset(off):
+	if off < 0:
+		if next_ball != null:
+			next_ball.previous_ball=null
+		emit_signal("disposed", self)
+		queue_free()
+		return
 	offset = off
 	if (next_ball != null) && (next_ball.offset-off) < CONST.MIN_SEPARATION:
 		next_ball.offset = off + CONST.MIN_SEPARATION
@@ -28,6 +34,12 @@ func set_offset(off):
 
 func get_offset():
 	return offset
+
+func _init():
+	var arg = {}
+	arg["type"] = TYPE_OBJECT
+	arg["name"] = "who"
+	add_user_signal("disposed", [arg]);
 
 func _ready():
 	sprite = get_node("AnimatedSprite")
