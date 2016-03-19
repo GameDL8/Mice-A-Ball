@@ -1,6 +1,7 @@
 
 extends Node2D
 
+#region subclasses
 class LevelPath:
 	var curve
 	var balls = []
@@ -24,7 +25,10 @@ class LevelPath:
 		gen_ball_count-=1
 		return next_color
 
+#region preload
 var ball_scn = preload("res://systems/ball/ball.tscn")
+
+#region variables
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
 
@@ -32,10 +36,10 @@ var state = CONST.STATE_PLAYING
 var paths = []
 var direction = CONST.DIR_FORWARD
 
-
+#region constructors
 func _init():
 	randomize()
-	
+	Globals.set("current_level", self)
 
 func _ready():
 	if color_generator_amounts == null: #BugDetected: IntArray can't have a default value
@@ -54,6 +58,7 @@ func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
 
+#region updaters
 func _input(ev):
 	if (CONST.DEBUG):
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_SPACE && ev.pressed:
@@ -84,8 +89,10 @@ func _fixed_process(delta):
 			for ball in path.balls:
 				ball.set_pos(curve.interpolate_baked(ball.offset))
 
+#region functions
 func create_ball(path,prev_ball,next_ball):
 	var ball = ball_scn.instance()
+	ball.path = path
 	ball.color = path.get_next_color()
 	ball.connect("disposed", self, "dispose_ball")
 	get_tree().get_root().call_deferred("add_child",ball)

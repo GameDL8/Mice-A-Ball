@@ -1,5 +1,7 @@
 
 extends Area2D
+
+#region variables
 var color = 0 setget set_color,get_color
 
 var sprite
@@ -8,8 +10,13 @@ var anim
 
 var previous_ball
 var next_ball
+var moving_direction = Vector2()
 var offset = 0 setget set_offset,get_offset
+var shoot_dir = Vector2()
+var shoot_speed = 0
+var path = null
 
+#region getters and setters
 func set_color(col):
 	if sprite == null: #HACK: when calling set_color before ready, color will be asigned later
 		color = col
@@ -35,6 +42,7 @@ func set_offset(off):
 func get_offset():
 	return offset
 
+#region constructors
 func _init():
 	var arg = {}
 	arg["type"] = TYPE_OBJECT
@@ -47,3 +55,43 @@ func _ready():
 	details = get_node("details")
 	set_color(color)
 	pass
+
+#region updaters
+func _fixed_process(delta):
+	.set_pos(get_pos()+shoot_dir*shoot_speed*delta)
+
+#region functions
+func set_pos(position): #function override
+	moving_direction = position - get_pos()
+	.set_pos(position)
+
+func shoot(direction, speed):
+	shoot_dir = direction
+	shoot_speed = speed
+	connect("area_enter", self, "on_collide_ball")
+	set_fixed_process(true)
+
+func on_collide_ball(other):
+	if other extends load("res://systems/ball/ball.gd"):
+		path = other.path
+		var delta_pos = get_pos()-other.get_pos()
+		if moving_direction.normalized().dot(delta_pos.normalized()) > 0: #other was hit on the front
+			previous_ball = other
+			next_ball = other.next_ball
+			if other.next_ball != null:
+				other.next_ball.previous_ball = self
+			other.next_ball = self
+			if path.last_ball == other:
+				path.last_ball = self
+		else: #other was hit on the back
+			next_ball = other
+			previous_ball = other.previous_ball
+			if other.previous_ball != null:
+				other.previous_ball.next_ball = self
+			other.previous_ball = self
+			if path.first_ball == other:
+				path.first_ball = self
+		path.balls.append(self)
+		set_fixed_process(false)
+		disconnect("area_enter", self, "on_collide_ball")
+

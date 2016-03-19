@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://systems/ball/ball.gd" type="Script" id=1]
 [ext_resource path="res://res/ball.png" type="Texture" id=2]
 [ext_resource path="res://res/details.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 29.9956
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -22,6 +27,9 @@ tracks/0/keys = { "cont":true, "times":FloatArray( 0, 1 ), "transitions":FloatAr
 [node name="Area2D" type="Area2D"]
 
 input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
@@ -48,5 +56,11 @@ autoplay = "move"
 [node name="details" type="Sprite" parent="."]
 
 texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
 
 
