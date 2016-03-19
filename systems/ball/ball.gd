@@ -1,7 +1,7 @@
 tool
 
 extends Area2D
-export(int,"Red,Green,Blue,Yellow") var color = 0 setget set_color,get_color
+var color = 0 setget set_color,get_color
 #copypaste from CONST to use inside editor
 var colors
 
@@ -37,7 +37,6 @@ func _ready():
 	details = get_node("details")
 	colors = CONST.colors
 	set_color(color)
-	print("Initialized with color ",colors[color])
 	pass
 
 func _init():

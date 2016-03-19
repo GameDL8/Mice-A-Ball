@@ -18,6 +18,7 @@ var direction = CONST.DIR_FORWARD
 
 func _init():
 	randomize()
+	
 
 func _ready():
 	if (path1 != null):
