@@ -3,7 +3,7 @@
 [ext_resource path="res://systems/mice/mice.gd" type="Script" id=1]
 [ext_resource path="res://systems/mice/bad_drawn_mice.png" type="Texture" id=2]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 
 frames = [ ExtResource( 2 ) ]
 
@@ -18,7 +18,8 @@ __meta__ = { "__editor_plugin_screen__":"Script" }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
-frames = SubResource( 2 )
+transform/rot = -90.0
+frames = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

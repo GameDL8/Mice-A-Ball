@@ -10,7 +10,6 @@ func _ready():
 	# Initialization here
 	set_fixed_process(true)
 	ball_scn=preload("res://systems/ball/ball.tscn")
-	shoot()
 	pass
 	
 func _fixed_process(delta):
