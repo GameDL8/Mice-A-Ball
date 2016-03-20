@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=2]
@@ -7,53 +7,22 @@
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
-_data = { "points":Vector2Array( 0, 0, 101.784, -74.0247, -69.9498, 651.219, -20.3568, 166.556, 83.2778, -144.348, 258.291, 265.137, -75.8753, 20.3568, 207.269, 42.5642, 482.267, 138.836, -166.556, 31.4605, 149.9, -25.9086, 876.397, 588.995, -74.0247, 122.141, 57.3692, -112.888, 1039.25, 263.286, 0, 0, 0, 0, 1345.77, 64.5734 ) }
-
-[sub_resource type="Curve2D" id=2]
-
-bake_interval = 5.0
-_data = { "points":Vector2Array( 0, 0, -140.647, 35.1618, 1370.93, 176.007, 49.9667, -77.7256, -68.4729, 122.141, 1137.76, 281.492, 301.651, 38.863, -153.601, -12.9543, 795.392, 657.168, 162.854, 103.635, -138.796, -12.9543, 473.384, 231.526, 101.784, -148.049, -112.888, 98.0825, 247.609, 520.222, 0, 0, 0, 0, -74.3988, 786.711 ) }
+_data = { "points":Vector2Array( 0, 0, -1.76732, 91.3234, 1133.69, -83.8013, 0, 0, -8.35091, 198.752, 1135.36, 382.18, 345.728, -10.0211, -278.92, -10.0211, 622.613, 691.163, -1.67018, 213.783, 3.34036, -225.475, 156.632, 365.478, -258.878, 8.35091, 300.633, 0, 594.22, 28.1009, -6.68073, -188.731, 0, 146.976, 991.723, 345.436, 207.103, 0, -188.731, 1.67018, 624.283, 594.293, 0, 106.892, -1.67018, -160.338, 301.938, 370.488, -187.06, 13.3615, 158.667, 0, 599.231, 128.312, 5.01055, -103.551, 0, 131.944, 851.428, 333.744, 100.211, -1.67018, -93.5302, -1.67018, 642.655, 499.092, 1.67018, 73.488, 5.01055, -101.881, 458.935, 362.137, -85.1793, 0, 0, 0, 615.932, 236.874 ) }
 
 [node name="level" type="Node2D"]
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-colors = 14
+colors = 15
 color_generator_amounts = null
 
 [node name="Path2D" type="Path2D" parent="."]
 
 curve = SubResource( 1 )
 
-[node name="Path2D1" type="Path2D" parent="."]
-
-curve = SubResource( 2 )
-
-[node name="Light2D" type="Light2D" parent="."]
-
-transform/pos = Vector2( 140, 530 )
-enabled = true
-texture = null
-offset = Vector2( 300, 0 )
-scale = 1.0
-color = Color( 1, 1, 1, 1 )
-energy = 30553.1
-mode = 0
-range/height = 20.0
-range/z_min = -1024
-range/z_max = 1024
-range/layer_min = 0
-range/layer_max = 0
-range/item_mask = 1
-shadow/enabled = false
-shadow/color = Color( 0, 0, 0, 0 )
-shadow/buffer_size = 2048
-shadow/esm_multiplier = 80.0
-shadow/item_mask = 1
-
 [node name="player" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 521.874, 571.841 )
+transform/pos = Vector2( 640, 360 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 

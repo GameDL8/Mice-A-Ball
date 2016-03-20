@@ -10,7 +10,7 @@ var curr_color setget set_curr_color,get_curr_color
 onready var curr_color_sprite = get_node("current")
 
 var next_color setget set_next_color,get_next_color
-onready var next_color_sprite = get_node("next")
+onready var next_color_sprite = get_node("AnimatedSprite/next")
 
 var current_shoot_speed = CONST.SHOOT_SPEED
 

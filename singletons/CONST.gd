@@ -21,8 +21,8 @@ const COLOR_YELLOW = 3
 #region constants
 const SPEED = 100
 const MIN_SEPARATION = 64
-const SHOOT_SPEED = 200
-const FAST_SHOOT_SPEED = 250
+const SHOOT_SPEED = 450
+const FAST_SHOOT_SPEED = 650
 const SHOOT_DISTANCE = 64
 
 const colors = [

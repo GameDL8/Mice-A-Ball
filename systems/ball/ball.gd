@@ -58,6 +58,10 @@ func _fixed_process(delta):
 	if inserting:
 		insertion+=delta*3
 		insertion=clamp(insertion,0,1)
+		if previous_ball != null && (offset-previous_ball.offset) < insertion*CONST.MIN_SEPARATION:
+			set_offset(previous_ball.offset+insertion*CONST.MIN_SEPARATION) #make sure insertion updates
+		else:
+			set_offset(offset)
 		if insertion == 1:
 			Globals.get("current_level").on_ball_inserted(self,path)
 			set_fixed_process(false)
@@ -79,6 +83,10 @@ func shoot(direction, speed):
 func on_collide_ball(other):
 	if other extends load("res://systems/ball/ball.gd"):
 		path = other.path
+		inserting=true
+		insertion=0.0
+		insertion_src=get_pos()
+		path.balls.append(self)
 		var delta_pos = get_pos()-other.get_pos()
 		if moving_direction.normalized().dot(delta_pos.normalized()) < 0: #other was hit on the front
 			previous_ball = other
@@ -88,6 +96,7 @@ func on_collide_ball(other):
 			else:
 				path.last_ball = self #we are the next ball
 			other.next_ball = self
+			self.offset=other.offset+CONST.MIN_SEPARATION
 		else: #other was hit on the back
 			next_ball = other
 			previous_ball = other.previous_ball
@@ -96,10 +105,8 @@ func on_collide_ball(other):
 			else:
 				path.first_ball = self #we are the first ball
 			other.previous_ball = self
-		inserting=true
-		insertion=0.0
-		insertion_src=get_pos()
-		path.balls.append(self)
+			self.offset=other.offset-CONST.MIN_SEPARATION
+
 		disconnect("area_enter", self, "on_collide_ball")
 
 func dispose(animate = false):
