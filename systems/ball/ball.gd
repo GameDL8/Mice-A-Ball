@@ -31,11 +31,7 @@ func get_color():
 
 func set_offset(off):
 	if off < 0:
-		if next_ball != null:
-			next_ball.previous_ball=null
-		emit_signal("disposed", self)
-		queue_free()
-		return
+		dispose()
 	offset = off
 	if (next_ball != null) && (next_ball.offset-off) < insertion*CONST.MIN_SEPARATION:
 		next_ball.offset = off + insertion*CONST.MIN_SEPARATION
@@ -50,12 +46,6 @@ func get_offset():
 	return offset
 
 #region constructors
-func _init():
-	var arg = {}
-	arg["type"] = TYPE_OBJECT
-	arg["name"] = "who"
-	add_user_signal("disposed", [arg]);
-
 func _ready():
 	sprite = get_node("AnimatedSprite")
 	anim = get_node("AnimationPlayer")
@@ -69,6 +59,7 @@ func _fixed_process(delta):
 		insertion+=delta*3
 		insertion=clamp(insertion,0,1)
 		if insertion == 1:
+			Globals.get("current_level").on_ball_inserted(self,path)
 			set_fixed_process(false)
 	else:
 		.set_pos(get_pos()+shoot_dir*shoot_speed*delta)
@@ -82,6 +73,7 @@ func shoot(direction, speed):
 	shoot_dir = direction
 	shoot_speed = speed
 	connect("area_enter", self, "on_collide_ball")
+	get_node("notifier").connect("exit_screen", self, "queue_free")
 	set_fixed_process(true)
 
 func on_collide_ball(other):
@@ -110,3 +102,17 @@ func on_collide_ball(other):
 		path.balls.append(self)
 		disconnect("area_enter", self, "on_collide_ball")
 
+func dispose(animate = false):
+	if previous_ball != null:
+		previous_ball.next_ball=next_ball
+	if next_ball != null:
+		next_ball.previous_ball=previous_ball
+	if path.first_ball == self:
+		path.first_ball = next_ball
+	if path.last_ball == self:
+		path.last_ball = previous_ball
+	path.balls.remove(path.balls.find(self))
+	if animate:
+		anim.play("dispose")
+		yield(anim,"finished")
+	queue_free()

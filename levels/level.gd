@@ -77,7 +77,6 @@ func _fixed_process(delta):
 				path.balls.append(path.first_ball)
 			if path.first_ball.offset >= CONST.MIN_SEPARATION:
 				path.first_ball = create_ball(path,null,path.first_ball)
-				path.first_ball.offset = path.first_ball.next_ball.offset-CONST.MIN_SEPARATION
 				path.balls.append(path.first_ball)
 			path.first_ball.offset+=delta*CONST.SPEED
 		elif direction == CONST.DIR_BACKWARD:
@@ -91,7 +90,6 @@ func create_ball(path,prev_ball,next_ball):
 	var ball = ball_scn.instance()
 	ball.path = path
 	ball.color = path.get_next_color()
-	ball.connect("disposed", self, "dispose_ball")
 	get_tree().get_root().call_deferred("add_child",ball)
 	if prev_ball != null:
 		prev_ball.next_ball = ball
@@ -101,9 +99,15 @@ func create_ball(path,prev_ball,next_ball):
 		ball.next_ball = next_ball
 	return ball
 
-func dispose_ball(ball):
-	for path in paths:
-		if ball in path.balls:
-			path.first_ball = ball.next_ball
-			path.balls.remove(path.balls.find(ball))
-
+func on_ball_inserted(ball,path):
+	var c = ball.color
+	while (ball.previous_ball != null && ball.previous_ball.color==c):
+		ball = ball.previous_ball #get the first ball of the same color
+	var balls = []
+	while (ball!=null && ball.color == c):
+		balls.append(ball)
+		ball = ball.next_ball
+	if (balls.size() >= 3):
+		for b in balls:
+			b.dispose(true)
+		print ("DESTROYED: "+str(balls.size()))
