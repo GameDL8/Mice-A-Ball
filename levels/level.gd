@@ -80,14 +80,11 @@ func _fixed_process(delta):
 				path.first_ball.offset = path.first_ball.next_ball.offset-CONST.MIN_SEPARATION
 				path.balls.append(path.first_ball)
 			path.first_ball.offset+=delta*CONST.SPEED
-			for ball in path.balls:
-				ball.set_pos(curve.interpolate_baked(ball.offset))
 		elif direction == CONST.DIR_BACKWARD:
 			if (path.last_ball == null):
 				return
 			path.last_ball.offset-=delta*CONST.SPEED
-			for ball in path.balls:
-				ball.set_pos(curve.interpolate_baked(ball.offset))
+
 
 #region functions
 func create_ball(path,prev_ball,next_ball):
