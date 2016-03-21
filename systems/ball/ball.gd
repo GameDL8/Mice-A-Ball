@@ -24,7 +24,7 @@ func set_color(col):
 	if sprite == null: #HACK: when calling set_color before ready, color will be asigned later
 		color = col
 	else:
-		sprite.set_modulate(CONST.colors[col])
+		sprite.set_texture(CONST.colors[col])
 
 func get_color():
 	return color
@@ -47,7 +47,7 @@ func get_offset():
 
 #region constructors
 func _ready():
-	sprite = get_node("AnimatedSprite")
+	sprite = get_node("mice")
 	anim = get_node("AnimationPlayer")
 	details = get_node("details")
 	set_color(color)

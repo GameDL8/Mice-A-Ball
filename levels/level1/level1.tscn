@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
-[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=3]
+[ext_resource path="res://levels/level1/kitchen.png" type="Texture" id=2]
+[ext_resource path="res://levels/level1/fg1.png" type="Texture" id=3]
+[ext_resource path="res://levels/level1/fg2.png" type="Texture" id=4]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=6]
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
-_data = { "points":Vector2Array( 0, 0, -1.76732, 91.3234, 1133.69, -83.8013, 0, 0, -8.35091, 198.752, 1135.36, 382.18, 345.728, -10.0211, -278.92, -10.0211, 622.613, 691.163, -1.67018, 213.783, 3.34036, -225.475, 156.632, 365.478, -258.878, 8.35091, 300.633, 0, 594.22, 28.1009, -6.68073, -188.731, 0, 146.976, 991.723, 345.436, 207.103, 0, -188.731, 1.67018, 624.283, 594.293, 0, 106.892, -1.67018, -160.338, 301.938, 370.488, -187.06, 13.3615, 158.667, 0, 599.231, 128.312, 5.01055, -103.551, 0, 131.944, 851.428, 333.744, 100.211, -1.67018, -93.5302, -1.67018, 642.655, 499.092, 1.67018, 73.488, 5.01055, -101.881, 458.935, 362.137, -85.1793, 0, 0, 0, 615.932, 236.874 ) }
+_data = { "points":Vector2Array( 0, 0, -38.5994, -11.8065, 1022.85, 544.24, 24.5547, 1.22774, -41.7431, 8.59416, 906.31, 501.988, 34.3766, -12.2774, -34.3766, 18.4161, 853.518, 556.009, 74.892, 13.5051, -25.7825, -28.238, 487.652, 553.553, -24.5547, 23.327, 45.4263, -24.5547, 485.196, 483.572, -22.0993, 17.1883, 38.0599, 4.91095, 803.18, 488.483, -8.59416, 29.4657, 2.45547, -20.8715, 908.893, 414.819, 3.68321, 27.0102, -3.68321, -34.3766, 911.348, 320.283, 36.8321, 0, -63.8423, -4.91095, 842.468, 263.807, 38.0599, 11.0496, -6.13869, -28.238, 577.404, 246.619, 18.4161, 35.6044, -27.0102, -13.5051, 562.671, 184.005, 36.8321, -8.59416, -14.7328, 15.9606, 420.253, 180.321, -14.7328, -15.9606, 20.8715, 17.1883, 416.57, 235.569, -27.0102, -25.7825, 22.0993, 31.9212, 528.294, 257.669, 31.9212, -18.4161, -42.9708, 24.5547, 531.977, 432.007, 13.5051, 23.327, -29.4657, -44.1985, 380.966, 419.73, 12.2774, 33.1489, -11.0496, -23.327, 351.5, 262.58, 0, 0, 0, 0, 223.596, 194.335 ) }
 
 [node name="level" type="Node2D"]
 
@@ -16,17 +19,35 @@ __meta__ = { "__editor_plugin_screen__":"Script" }
 colors = 15
 color_generator_amounts = null
 
+[node name="bg" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+z/z = -1
+texture = ExtResource( 2 )
+
+[node name="fg1" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( -378.121, -157.316 )
+z/z = 4
+texture = ExtResource( 3 )
+
+[node name="fg2" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( 349, 170 )
+z/z = 4
+texture = ExtResource( 4 )
+
 [node name="Path2D" type="Path2D" parent="."]
 
 curve = SubResource( 1 )
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+[node name="player" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 640, 360 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 3 )
+stream/stream = ExtResource( 6 )
 stream/play = true
 stream/loop = true
 stream/volume_db = 0.0
@@ -34,5 +55,32 @@ stream/autoplay = true
 stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
+
+[node name="roof" type="Polygon2D" parent="."]
+
+z/z = 3
+polygon = Vector2Array( 245, 82, 245, 632, 1035, 632, 1035, 82, 1285, -8, 1285, 732, -5, 732, -5, -8 )
+uv = Vector2Array(  )
+color = Color( 0.195313, 0.193024, 0.193024, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="roof1" type="Polygon2D" parent="."]
+
+polygon = Vector2Array( -5, -8, 245, 82, 1035, 82, 1285, -8 )
+uv = Vector2Array(  )
+color = Color( 0.195313, 0.193024, 0.193024, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
 
 

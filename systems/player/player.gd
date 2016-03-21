@@ -17,13 +17,13 @@ var current_shoot_speed = CONST.SHOOT_SPEED
 #region getters and setters
 func set_curr_color(val):
 	curr_color=val
-	curr_color_sprite.set_modulate(CONST.colors[val])
+	curr_color_sprite.set_texture(CONST.colors[val])
 func get_curr_color():
 	return curr_color
 
 func set_next_color(val):
 	next_color=val
-	next_color_sprite.set_modulate(CONST.colors[val])
+	next_color_sprite.set_texture(CONST.colors[val])
 func get_next_color():
 	return next_color
 
@@ -43,6 +43,10 @@ func _input(ev):
 		look_at(get_node("/root").get_mouse_pos())
 	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 1 and ev.pressed:
 		shoot()
+	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 2 and ev.pressed:
+		var aux = curr_color
+		self.curr_color=next_color
+		self.next_color=aux
 
 #region functions
 func shoot():

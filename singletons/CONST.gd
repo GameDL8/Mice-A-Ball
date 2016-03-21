@@ -19,15 +19,15 @@ const COLOR_BLUE = 2
 const COLOR_YELLOW = 3
 
 #region constants
-const SPEED = 100
-const MIN_SEPARATION = 64
+const SPEED = 80
+const MIN_SEPARATION = 40
 const SHOOT_SPEED = 450
 const FAST_SHOOT_SPEED = 650
-const SHOOT_DISTANCE = 64
+const SHOOT_DISTANCE = 50
 
 const colors = [
-Color(0.9375,0.102539,0.239525),
-Color(0.069916,0.617188,0.091294),
-Color(0.247162,0.439194,0.710938),
-Color(0.949219,0.885547,0.367081)
+preload("res://systems/ball/mice_a.png"),
+preload("res://systems/ball/mice_b.png"),
+preload("res://systems/ball/mice_c.png"),
+preload("res://systems/ball/mice_d.png")
 ]

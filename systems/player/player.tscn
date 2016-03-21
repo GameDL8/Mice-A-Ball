@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://systems/player/player.gd" type="Script" id=1]
 [ext_resource path="res://systems/player/bad_drawn_mice.png" type="Texture" id=2]
-[ext_resource path="res://res/ball.png" type="Texture" id=3]
+[ext_resource path="res://systems/ball/mice_c.png" type="Texture" id=3]
 [ext_resource path="res://res/details.png" type="Texture" id=4]
-[ext_resource path="res://sounds/squeak.wav" type="Sample" id=5]
+[ext_resource path="res://systems/ball/mice_d.png" type="Texture" id=5]
+[ext_resource path="res://sounds/squeak.wav" type="Sample" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -31,7 +32,7 @@ tracks/2/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "value
 
 [sub_resource type="SampleLibrary" id=3]
 
-samples/squeak = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+samples/squeak = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
 
 [node name="player" type="Node2D"]
 
@@ -45,9 +46,9 @@ frames = SubResource( 1 )
 
 [node name="next" type="Sprite" parent="AnimatedSprite"]
 
-transform/pos = Vector2( -16, 6.99382e-007 )
+transform/pos = Vector2( -10, 1e-006 )
 transform/rot = 90.0
-transform/scale = Vector2( 0.5, 0.5 )
+transform/scale = Vector2( 0.08, 0.08 )
 texture = ExtResource( 3 )
 
 [node name="detail" type="Sprite" parent="AnimatedSprite/next"]
@@ -67,8 +68,9 @@ autoplay = ""
 
 [node name="current" type="Sprite" parent="."]
 
-transform/pos = Vector2( 0, 64 )
-texture = ExtResource( 3 )
+transform/pos = Vector2( 0, 50 )
+transform/scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 5 )
 
 [node name="detail" type="Sprite" parent="current"]
 
