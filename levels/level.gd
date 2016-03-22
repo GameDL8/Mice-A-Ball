@@ -35,6 +35,7 @@ export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugD
 var state = CONST.STATE_PLAYING
 var paths = []
 var direction = CONST.DIR_FORWARD
+var timer
 
 #region constructors
 func _init():
@@ -57,6 +58,10 @@ func _ready():
 			pass
 	set_fixed_process(true)
 	set_process_input(true)
+	timer = Timer.new()
+	timer.set_one_shot(true)
+	timer.set_wait_time(0.2)
+	add_child(timer)
 
 #region updaters
 func _input(ev):
@@ -113,4 +118,8 @@ func on_ball_inserted(ball,path):
 			b.dispose(true)
 		if pullable_ball != null:
 			pullable_ball.pulling=true
+		set_fixed_process(false)
+		timer.start()
+		yield(timer,"timeout")
+		set_fixed_process(true)
 		print ("DESTROYED: "+str(balls.size()))

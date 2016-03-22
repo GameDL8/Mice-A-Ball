@@ -19,6 +19,7 @@ var inserting = false
 var insertion=1.0
 var insertion_src=Vector2()
 var pulling = false
+var disposing = false
 
 #region getters and setters
 func set_color(col):
@@ -73,7 +74,7 @@ func _fixed_process(delta):
 		if pulling == true:
 			if previous_ball==null || previous_ball.color!=color:
 				pulling = false
-			if (previous_ball.offset+CONST.MIN_SEPARATION)==offset:
+			elif (previous_ball.offset+CONST.MIN_SEPARATION)==offset:
 				pulling==false
 				Globals.get("current_level").on_ball_inserted(self,path)
 			else:
@@ -99,6 +100,8 @@ func shoot(direction, speed):
 
 func on_collide_ball(other):
 	if other extends load("res://systems/ball/ball.gd"):
+		if other.disposing:
+			return
 		path = other.path
 		inserting=true
 		insertion=0.0
@@ -136,6 +139,7 @@ func dispose(animate = false):
 	if path.last_ball == self:
 		path.last_ball = previous_ball
 	path.balls.remove(path.balls.find(self))
+	disposing = true
 	if animate:
 		anim.play("dispose")
 		yield(anim,"finished")
