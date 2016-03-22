@@ -107,7 +107,10 @@ func on_ball_inserted(ball,path):
 	while (ball!=null && ball.color == c):
 		balls.append(ball)
 		ball = ball.next_ball
+	var pullable_ball = balls[balls.size()-1].next_ball
 	if (balls.size() >= 3):
 		for b in balls:
 			b.dispose(true)
+		if pullable_ball != null:
+			pullable_ball.pulling=true
 		print ("DESTROYED: "+str(balls.size()))

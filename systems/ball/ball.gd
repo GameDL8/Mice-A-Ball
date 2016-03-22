@@ -70,14 +70,17 @@ func _fixed_process(delta):
 	elif shoot_speed > 0:
 		.set_pos(get_pos()+shoot_dir*shoot_speed*delta)
 	else:
-		if previous_ball!=null&&(offset-previous_ball.offset)>CONST.MIN_SEPARATION&&previous_ball.color==color:
-			offset-=delta*CONST.SPEED*2
-			pulling = true
-			pull_next(delta*CONST.SPEED*2)
-		else:
-			if pulling == true && offset-previous_ball.offset<= CONST.MIN_SEPARATION+0.2:
+		if pulling == true:
+			if previous_ball==null || previous_ball.color!=color:
 				pulling = false
+			if (previous_ball.offset+CONST.MIN_SEPARATION)==offset:
+				pulling==false
 				Globals.get("current_level").on_ball_inserted(self,path)
+			else:
+				var last = self
+				while (last.next_ball!=null && last.next_ball.offset <= last.offset+CONST.MIN_SEPARATION):
+					last = last.next_ball
+				last.offset -=CONST.SPEED*2*delta
 		var pos = path.curve.interpolate_baked(offset)
 		pos.x = lerp(insertion_src.x,pos.x,insertion)
 		pos.y = lerp(insertion_src.y,pos.y,insertion)
@@ -138,8 +141,3 @@ func dispose(animate = false):
 		yield(anim,"finished")
 	queue_free()
 
-func pull_next(distance):
-	if next_ball!=null && next_ball.offset >= offset+CONST.MIN_SEPARATION+distance+0.1:
-		next_ball.offset-=distance
-		next_ball.pull_next(distance)
-	
