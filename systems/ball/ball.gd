@@ -18,6 +18,7 @@ var path = null
 var inserting = false
 var insertion=1.0
 var insertion_src=Vector2()
+var pulling = false
 
 #region getters and setters
 func set_color(col):
@@ -51,6 +52,7 @@ func _ready():
 	anim = get_node("AnimationPlayer")
 	details = get_node("details")
 	set_color(color)
+	set_fixed_process(true)
 	pass
 
 #region updaters
@@ -64,9 +66,22 @@ func _fixed_process(delta):
 			set_offset(offset)
 		if insertion == 1:
 			Globals.get("current_level").on_ball_inserted(self,path)
-			set_fixed_process(false)
-	else:
+			inserting = false
+	elif shoot_speed > 0:
 		.set_pos(get_pos()+shoot_dir*shoot_speed*delta)
+	else:
+		if previous_ball!=null&&(offset-previous_ball.offset)>CONST.MIN_SEPARATION&&previous_ball.color==color:
+			offset-=delta*CONST.SPEED*2
+			pulling = true
+			pull_next(delta*CONST.SPEED*2)
+		else:
+			if pulling == true && offset-previous_ball.offset<= CONST.MIN_SEPARATION+0.2:
+				pulling = false
+				Globals.get("current_level").on_ball_inserted(self,path)
+		var pos = path.curve.interpolate_baked(offset)
+		pos.x = lerp(insertion_src.x,pos.x,insertion)
+		pos.y = lerp(insertion_src.y,pos.y,insertion)
+		.set_pos(pos)
 
 #region functions
 func set_pos(position): #function override
@@ -78,7 +93,6 @@ func shoot(direction, speed):
 	shoot_speed = speed
 	connect("area_enter", self, "on_collide_ball")
 	get_node("notifier").connect("exit_screen", self, "queue_free")
-	set_fixed_process(true)
 
 func on_collide_ball(other):
 	if other extends load("res://systems/ball/ball.gd"):
@@ -106,7 +120,7 @@ func on_collide_ball(other):
 				path.first_ball = self #we are the first ball
 			other.previous_ball = self
 			self.offset=other.offset-CONST.MIN_SEPARATION
-
+		shoot_speed = 0
 		disconnect("area_enter", self, "on_collide_ball")
 
 func dispose(animate = false):
@@ -123,3 +137,9 @@ func dispose(animate = false):
 		anim.play("dispose")
 		yield(anim,"finished")
 	queue_free()
+
+func pull_next(distance):
+	if next_ball!=null && next_ball.offset >= offset+CONST.MIN_SEPARATION+distance+0.1:
+		next_ball.offset-=distance
+		next_ball.pull_next(distance)
+	

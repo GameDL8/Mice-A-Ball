@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 radius = 19.0442
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource/name = "dispose"
 length = 0.5
@@ -24,7 +24,7 @@ tracks/1/path = NodePath("details:visibility/self_opacity")
 tracks/1/interp = 1
 tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "values":[ 1.0, 0.0 ] }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 length = 1.0
 loop = true
@@ -58,8 +58,8 @@ texture = ExtResource( 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/dispose = SubResource( 3 )
-anims/move = SubResource( 4 )
+anims/dispose = SubResource( 2 )
+anims/move = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
