@@ -76,6 +76,8 @@ func _input(ev):
 				direction = CONST.DIR_BACKWARD
 			else:
 				direction = CONST.DIR_FORWARD
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_SHIFT && ev.pressed:
+			GameManager.game_over()
 
 func _fixed_process(delta):
 	for path in paths:
@@ -100,7 +102,7 @@ func create_ball(path,prev_ball,next_ball):
 	var ball = ball_scn.instance()
 	ball.path = path
 	ball.color = path.get_next_color()
-	get_tree().get_root().call_deferred("add_child",ball)
+	call_deferred("add_child",ball)
 	if prev_ball != null:
 		prev_ball.next_ball = ball
 		ball.previous_ball = next_ball

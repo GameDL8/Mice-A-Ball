@@ -19,7 +19,7 @@ const COLOR_BLUE = 2
 const COLOR_YELLOW = 3
 
 #region constants
-const SPEED = 20
+const SPEED = 80
 const MIN_SEPARATION = 40
 const SHOOT_SPEED = 450
 const FAST_SHOOT_SPEED = 650

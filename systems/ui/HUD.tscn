@@ -38,11 +38,11 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=2]
 
 frames = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 
 resource/name = "life"
 length = 1.0
@@ -53,7 +53,7 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/keys = { "cont":true, "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "values":[ 0, 11 ] }
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=4]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -70,7 +70,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=2]
+[sub_resource type="StyleBoxTexture" id=5]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -120,7 +120,7 @@ custom_styles/panel = SubResource( 1 )
 [node name="icon" type="AnimatedSprite" parent="container/lives"]
 
 transform/pos = Vector2( 31, -7 )
-frames = SubResource( 4 )
+frames = SubResource( 2 )
 frame = 8
 centered = false
 
@@ -129,7 +129,7 @@ centered = false
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/life = SubResource( 5 )
+anims/life = SubResource( 3 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -229,6 +229,8 @@ margin/bottom = 20.0
 rect/scale = Vector2( 1, 2 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -254,8 +256,8 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 3
-custom_styles/hover = SubResource( 3 )
-custom_styles/normal = SubResource( 2 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 15 )
 toggle_mode = false
 text = "MENU"

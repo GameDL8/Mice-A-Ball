@@ -17,6 +17,7 @@ _data = { "points":Vector2Array( 0, 0, -38.5994, -11.8065, 1022.85, 544.24, 24.5
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 level_name = "KITCHEN"
+score_to_win = 1000
 colors = 15
 color_generator_amounts = null
 
@@ -25,6 +26,7 @@ color_generator_amounts = null
 transform/pos = Vector2( 640, 360 )
 z/z = -1
 texture = ExtResource( 2 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="fg1" type="Sprite" parent="bg"]
 
