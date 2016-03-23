@@ -19,7 +19,7 @@ const COLOR_BLUE = 2
 const COLOR_YELLOW = 3
 
 #region constants
-const SPEED = 80
+const SPEED = 20
 const MIN_SEPARATION = 40
 const SHOOT_SPEED = 450
 const FAST_SHOOT_SPEED = 650
@@ -31,3 +31,6 @@ preload("res://systems/ball/mice_b.png"),
 preload("res://systems/ball/mice_c.png"),
 preload("res://systems/ball/mice_d.png")
 ]
+
+var SFX = true
+var MUSIC = true

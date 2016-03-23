@@ -65,6 +65,8 @@ func _ready():
 
 #region updaters
 func _input(ev):
+	if ev.type == InputEvent.KEY && ev.scancode==KEY_ESCAPE && ev.pressed:
+		PAUSE_MENU.pause()
 	if (CONST.DEBUG):
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_SPACE && ev.pressed:
 			if direction == CONST.DIR_FORWARD:

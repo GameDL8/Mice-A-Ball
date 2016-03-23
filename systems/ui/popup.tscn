@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=1]
+
+[node name="Popup" type="Popup"]
+
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+popup/exclusive = false
+__meta__ = { "__editor_plugin_screen__":"2D" }
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+
+margin/right = 20.0
+margin/bottom = 20.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.996094, 0.988312, 0.988312, 1 )
+popup/exclusive = false
+items = [  ]
+
+
