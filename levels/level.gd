@@ -29,6 +29,8 @@ class LevelPath:
 var ball_scn = preload("res://systems/ball/ball.tscn")
 
 #region variables
+export(String) var level_name = "KITCHEN"
+export(int) var score_to_win = 1000
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
 
@@ -43,6 +45,7 @@ func _init():
 	Globals.set("current_level", self)
 
 func _ready():
+	HUD.initialize_level(level_name,score_to_win)
 	if color_generator_amounts == null: #BugDetected: IntArray can't have a default value
 		color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6]
 	for node in get_children():
