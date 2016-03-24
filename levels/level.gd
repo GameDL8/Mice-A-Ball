@@ -38,7 +38,6 @@ export(int) var score_to_win = 1000
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
 export (int) var SPEED
-export (int) var level
 
 var state = CONST.STATE_PLAYING
 var chain_bonus = 0
