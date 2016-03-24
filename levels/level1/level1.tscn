@@ -20,6 +20,7 @@ level_name = "KITCHEN"
 score_to_win = 4000
 colors = 15
 color_generator_amounts = null
+SPEED = 40
 
 [node name="bg" type="Sprite" parent="."]
 

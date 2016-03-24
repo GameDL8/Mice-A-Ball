@@ -37,6 +37,7 @@ export(String) var level_name = "KITCHEN"
 export(int) var score_to_win = 1000
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
+export (int) var SPEED
 
 var state = CONST.STATE_PLAYING
 var chain_bonus = 0
@@ -50,6 +51,8 @@ var time_scale = 1
 func _init():
 	randomize()
 	Globals.set("current_level", self)
+	if SPEED == null:
+		SPEED = CONST.SPEED
 
 func _ready():
 	HUD.initialize_level(level_name,score_to_win)
@@ -118,11 +121,11 @@ func _fixed_process(delta):
 					path.first_ball = create_ball(path,null,path.first_ball)
 					path.balls.append(path.first_ball)
 				if path.first_ball != null:
-					path.first_ball.offset+=delta*CONST.SPEED
+					path.first_ball.offset+=delta*SPEED
 			elif direction == CONST.DIR_BACKWARD:
 				if (path.last_ball == null):
 					return
-				path.last_ball.offset-=delta*CONST.SPEED
+				path.last_ball.offset-=delta*SPEED
 			if path.last_ball!=null:
 				path.cleared_pos = path.last_ball.offset
 			if  path.balls.size()==0 && state==CONST.STATE_SCORED:
@@ -165,7 +168,7 @@ func _fixed_process(delta):
 			if path.cleared:
 				continue
 			if path.first_ball != null:
-				path.first_ball.offset+=delta*CONST.SPEED*10
+				path.first_ball.offset+=delta*SPEED*10
 				if path.last_ball!=null&&path.last_ball.offset>=path.curve.get_baked_length():
 					path.last_ball.dispose()
 				if path.first_ball == null:
