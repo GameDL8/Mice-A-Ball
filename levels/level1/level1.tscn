@@ -15,11 +15,13 @@ _data = { "points":Vector2Array( 0, 0, -38.5994, -11.8065, 1022.85, 544.24, 24.5
 [node name="level" type="Node2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"Script" }
+__meta__ = { "__editor_plugin_screen__":"2D" }
 level_name = "KITCHEN"
 score_to_win = 4000
 colors = 15
 color_generator_amounts = null
+SPEED = 90
+level = 1
 
 [node name="bg" type="Sprite" parent="."]
 
