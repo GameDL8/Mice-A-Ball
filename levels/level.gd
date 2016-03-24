@@ -79,8 +79,10 @@ func _input(ev):
 				direction = CONST.DIR_BACKWARD
 			else:
 				direction = CONST.DIR_FORWARD
-		if ev.type == InputEvent.KEY && ev.scancode==KEY_SHIFT && ev.pressed:
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_O && ev.pressed:
 			GameManager.game_over()
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_S && ev.pressed:
+			GameManager.add_score(100)
 
 func _fixed_process(delta):
 	for path in paths:
@@ -109,8 +111,13 @@ func _fixed_process(delta):
 			win=false
 			break
 	if win:
-		print("FINISHED THE LEVEL!")
 		set_fixed_process(false)
+		var t = Timer.new()
+		add_child(t)
+		t.set_wait_time(5)
+		t.start()
+		yield(t,"timeout")
+		GameManager.advance_level()
 
 
 #region functions

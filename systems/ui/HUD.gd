@@ -22,10 +22,12 @@ func initialize_level(name="", max_score=1000):
 	score_gauge.set_max(max_score)
 
 func disable_player():
-	Globals.get("player").set_process_input(false)
+	if Globals.get("player") != null:
+		Globals.get("player").set_process_input(false)
 
 func enable_player():
-	Globals.get("player").set_process_input(true)
+	if Globals.get("player") != null:
+		Globals.get("player").set_process_input(true)
 
 func show():
 	get_node("container").show()

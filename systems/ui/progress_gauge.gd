@@ -7,7 +7,7 @@ func set_score(val):
 	var w = get_size().x
 	var val_per_pixel = get_max()/w
 	var rel = (pixel_offset*2)*val_per_pixel
-	val *= (1-rel/1000)
+	val *= (1-rel/100)
 	val += pixel_offset*val_per_pixel
 	set_value(val)
 
