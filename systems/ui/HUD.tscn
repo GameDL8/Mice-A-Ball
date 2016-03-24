@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=1]
+[gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://systems/ui/HUD.gd" type="Script" id=1]
 [ext_resource path="res://res/ui/progress_c_bg.png" type="Texture" id=2]
@@ -15,11 +15,12 @@
 [ext_resource path="res://res/ui/lives/o_5647f12c07c02dac-10.png" type="Texture" id=13]
 [ext_resource path="res://res/ui/lives/o_5647f12c07c02dac-11.png" type="Texture" id=14]
 [ext_resource path="res://res/fonts/dimbo_itallic.fnt" type="Font" id=15]
-[ext_resource path="res://res/ui/progress_a_bg.png" type="Texture" id=16]
-[ext_resource path="res://res/ui/progress_a_fill_blue.png" type="Texture" id=17]
-[ext_resource path="res://systems/ui/progress_gauge.gd" type="Script" id=18]
-[ext_resource path="res://res/ui/button_down.png" type="Texture" id=19]
-[ext_resource path="res://res/ui/button.png" type="Texture" id=20]
+[ext_resource path="res://res/ui/progress_a_begin.png" type="Texture" id=16]
+[ext_resource path="res://res/ui/progress_a_bg.png" type="Texture" id=17]
+[ext_resource path="res://res/ui/progress_a_fill_blue.png" type="Texture" id=18]
+[ext_resource path="res://res/ui/progress_a_end.png" type="Texture" id=19]
+[ext_resource path="res://res/ui/button_down.png" type="Texture" id=20]
+[ext_resource path="res://res/ui/button.png" type="Texture" id=21]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -59,7 +60,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 margin/left = 32.0
 margin/right = 32.0
 margin/top = 12.0
@@ -76,7 +77,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 margin/left = 32.0
 margin/right = 32.0
 margin/top = 12.0
@@ -208,25 +209,36 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="progress" type="Panel" parent="container"]
+[node name="progress" type="HBoxContainer" parent="container"]
 
 visibility/self_opacity = 0.0
 margin/left = 910.0
 margin/right = 1110.0
-margin/bottom = 49.0
+margin/bottom = 21.0
 rect/min_size = Vector2( 200, 0 )
+rect/scale = Vector2( 1, 2 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 3
+size_flags/horizontal = 2
 size_flags/vertical = 2
-custom_styles/panel = SubResource( 1 )
+custom_constants/separation = 0
+alignment = 0
+
+[node name="begin" type="TextureFrame" parent="container/progress"]
+
+margin/right = 9.0
+margin/bottom = 21.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+texture = ExtResource( 16 )
 
 [node name="gauge" type="TextureProgress" parent="container/progress"]
 
-margin/top = -1.0
-margin/right = 200.0
-margin/bottom = 20.0
-rect/scale = Vector2( 1, 2 )
+margin/left = 9.0
+margin/right = 192.0
+margin/bottom = 21.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -238,13 +250,22 @@ range/page = 0.0
 range/value = 50.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 16 )
+texture/under = ExtResource( 17 )
 texture/over = null
-texture/progress = ExtResource( 17 )
+texture/progress = ExtResource( 18 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
-script/script = ExtResource( 18 )
-pixel_offset = 9
+
+[node name="end" type="TextureFrame" parent="container/progress"]
+
+margin/left = 192.0
+margin/right = 200.0
+margin/bottom = 21.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+texture = ExtResource( 19 )
 
 [node name="menu" type="Button" parent="container"]
 

@@ -22,6 +22,7 @@ func new_game():
 
 func advance_level():
 	current_level+=1
+	level_score = 0
 	if current_level < levels.size():
 		get_tree().change_scene(levels[current_level])
 	else:
@@ -39,7 +40,7 @@ func add_score(_score):
 	score +=_score
 	level_score += _score
 	HUD.score_label.set_text(str(score))
-	HUD.score_gauge.set_score(level_score)
+	HUD.score_gauge.set_value(level_score)
 	var level = Globals.get("current_level")
 	if level_score >= level.score_to_win && level.state == CONST.STATE_PLAYING:
 		Globals.get("current_level").state = CONST.STATE_SCORED
