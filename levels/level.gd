@@ -42,6 +42,8 @@ var paths = []
 var direction = CONST.DIR_FORWARD
 var timer
 
+var time_scale = 1
+
 #region constructors
 func _init():
 	randomize()
@@ -69,6 +71,16 @@ func _ready():
 	timer.set_wait_time(0.2)
 	add_child(timer)
 
+func restart():
+	for path in paths:
+		path.cleared=false
+	HUD.initialize_level(level_name,score_to_win)
+	direction=CONST.DIR_FORWARD
+	state=CONST.STATE_PLAYING
+	set_fixed_process(true)
+	set_process_input(true)
+	Globals.get("player").set_process_input(true)
+
 #region updaters
 func _input(ev):
 	if ev.type == InputEvent.KEY && ev.scancode==KEY_ESCAPE && ev.pressed:
@@ -83,41 +95,74 @@ func _input(ev):
 			GameManager.game_over()
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_S && ev.pressed:
 			GameManager.add_score(100)
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_SHIFT && ev.pressed:
+			time_scale=5
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_SHIFT && !ev.pressed:
+			time_scale=1
 
 func _fixed_process(delta):
-	for path in paths:
-		if path.cleared:
-			continue
-		var curve = path.curve
-		if direction == CONST.DIR_FORWARD:
-			if state==CONST.STATE_PLAYING && path.first_ball == null:
-				path.first_ball = create_ball(path,null,null)
-				path.last_ball = path.first_ball
-				path.balls.append(path.first_ball)
-			if state==CONST.STATE_PLAYING && path.first_ball.offset >= CONST.MIN_SEPARATION:
-				path.first_ball = create_ball(path,null,path.first_ball)
-				path.balls.append(path.first_ball)
+	delta*=time_scale
+	if state in [CONST.STATE_PLAYING,CONST.STATE_SCORED]:
+		for path in paths:
+			if path.cleared:
+				continue
+			var curve = path.curve
+			if direction == CONST.DIR_FORWARD:
+				if state==CONST.STATE_PLAYING && path.first_ball == null:
+					path.first_ball = create_ball(path,null,null)
+					path.last_ball = path.first_ball
+					path.balls.append(path.first_ball)
+				if state==CONST.STATE_PLAYING && path.first_ball.offset >= CONST.MIN_SEPARATION:
+					path.first_ball = create_ball(path,null,path.first_ball)
+					path.balls.append(path.first_ball)
+				if path.first_ball != null:
+					path.first_ball.offset+=delta*CONST.SPEED
+			elif direction == CONST.DIR_BACKWARD:
+				if (path.last_ball == null):
+					return
+				path.last_ball.offset-=delta*CONST.SPEED
+			if  path.balls.size()==0 && state==CONST.STATE_SCORED:
+				path.cleared=true
+			if path.last_ball!=null&&path.last_ball.offset>=path.curve.get_baked_length():
+				state = CONST.STATE_LOSE
+				Globals.get("player").set_process_input(false)
+		var win = true
+		for path in paths:
+			if !path.cleared:
+				win=false
+				break
+		if win:
+			set_fixed_process(false)
+			var t = Timer.new()
+			add_child(t)
+			t.set_wait_time(5)
+			t.start()
+			yield(t,"timeout")
+			GameManager.advance_level()
+	if state == CONST.STATE_LOSE:
+		for path in paths:
+			if path.cleared:
+				continue
 			if path.first_ball != null:
-				path.first_ball.offset+=delta*CONST.SPEED
-		elif direction == CONST.DIR_BACKWARD:
-			if (path.last_ball == null):
-				return
-			path.last_ball.offset-=delta*CONST.SPEED
-		if  path.balls.size()==0 && state==CONST.STATE_SCORED:
-			path.cleared=true
-	var win = true
-	for path in paths:
-		if !path.cleared:
-			win=false
-			break
-	if win:
-		set_fixed_process(false)
-		var t = Timer.new()
-		add_child(t)
-		t.set_wait_time(5)
-		t.start()
-		yield(t,"timeout")
-		GameManager.advance_level()
+				path.first_ball.offset+=delta*CONST.SPEED*10
+				if path.last_ball!=null&&path.last_ball.offset>=path.curve.get_baked_length():
+					path.last_ball.dispose()
+				if path.first_ball == null:
+					path.cleared=true
+		var lose = true
+		for path in paths:
+			if !path.cleared:
+				lose=false
+				break
+		if lose:
+			set_fixed_process(false)
+			var t = Timer.new()
+			add_child(t)
+			t.set_wait_time(5)
+			t.start()
+			yield(t,"timeout")
+			GameManager.on_lose()
+
 
 
 #region functions

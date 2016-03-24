@@ -36,6 +36,15 @@ func game_over():
 	get_tree().change_scene("res://systems/game_over/game_over.tscn")
 	HUD.hide()
 
+func on_lose():
+	lives-=1
+	level_score=0
+	HUD.set_lives(lives)
+	if lives==0:
+		game_over()
+	else:
+		Globals.get("current_level").restart()
+
 func add_score(_score):
 	score +=_score
 	level_score += _score

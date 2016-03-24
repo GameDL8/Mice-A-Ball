@@ -148,5 +148,6 @@ func dispose(animate = false):
 	if animate:
 		anim.play("dispose")
 		yield(anim,"finished")
-	queue_free()
+	if is_inside_tree():
+		queue_free()
 

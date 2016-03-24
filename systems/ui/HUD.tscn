@@ -214,9 +214,8 @@ max_lines_visible = -1
 visibility/self_opacity = 0.0
 margin/left = 910.0
 margin/right = 1110.0
-margin/bottom = 21.0
+margin/bottom = 49.0
 rect/min_size = Vector2( 200, 0 )
-rect/scale = Vector2( 1, 2 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -227,7 +226,7 @@ alignment = 0
 [node name="begin" type="TextureFrame" parent="container/progress"]
 
 margin/right = 9.0
-margin/bottom = 21.0
+margin/bottom = 49.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -238,7 +237,7 @@ texture = ExtResource( 16 )
 
 margin/left = 9.0
 margin/right = 192.0
-margin/bottom = 21.0
+margin/bottom = 49.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -260,7 +259,7 @@ radial_fill/center_offset = Vector2( 0, 0 )
 
 margin/left = 192.0
 margin/right = 200.0
-margin/bottom = 21.0
+margin/bottom = 49.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
