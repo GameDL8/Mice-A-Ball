@@ -11,6 +11,7 @@ class LevelPath:
 	var colors = 0
 	var color_generator_amounts = []
 	var next_color = -1
+	var cleared = false
 	func get_next_color():
 		if gen_ball_count <= 0:
 			gen_ball_count = color_generator_amounts[floor(rand_range(0,color_generator_amounts.size()))]
@@ -83,20 +84,33 @@ func _input(ev):
 
 func _fixed_process(delta):
 	for path in paths:
+		if path.cleared:
+			continue
 		var curve = path.curve
 		if direction == CONST.DIR_FORWARD:
-			if path.first_ball == null:
+			if state==CONST.STATE_PLAYING && path.first_ball == null:
 				path.first_ball = create_ball(path,null,null)
 				path.last_ball = path.first_ball
 				path.balls.append(path.first_ball)
-			if path.first_ball.offset >= CONST.MIN_SEPARATION:
+			if state==CONST.STATE_PLAYING && path.first_ball.offset >= CONST.MIN_SEPARATION:
 				path.first_ball = create_ball(path,null,path.first_ball)
 				path.balls.append(path.first_ball)
-			path.first_ball.offset+=delta*CONST.SPEED
+			if path.first_ball != null:
+				path.first_ball.offset+=delta*CONST.SPEED
 		elif direction == CONST.DIR_BACKWARD:
 			if (path.last_ball == null):
 				return
 			path.last_ball.offset-=delta*CONST.SPEED
+		if  path.balls.size()==0 && state==CONST.STATE_SCORED:
+			path.cleared=true
+	var win = true
+	for path in paths:
+		if !path.cleared:
+			win=false
+			break
+	if win:
+		print("FINISHED THE LEVEL!")
+		set_fixed_process(false)
 
 
 #region functions

@@ -10,8 +10,9 @@ const DIR_FORWARD = 0
 const DIR_BACKWARD = 1
 
 const STATE_PLAYING = 0
-const STATE_LOSE = 1
-const STATE_WIN = 2
+const STATE_SCORED = 1
+const STATE_LOSE = 2
+const STATE_WIN = 3
 
 const COLOR_RED = 0
 const COLOR_GREEN = 1

@@ -25,5 +25,8 @@ func add_score(_score):
 	level_score += _score
 	HUD.score_label.set_text(str(score))
 	HUD.score_gauge.set_score(level_score)
+	var level = Globals.get("current_level")
+	if level_score >= level.score_to_win && level.state == CONST.STATE_PLAYING:
+		Globals.get("current_level").state = CONST.STATE_SCORED
 
 

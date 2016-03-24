@@ -17,7 +17,7 @@ _data = { "points":Vector2Array( 0, 0, -38.5994, -11.8065, 1022.85, 544.24, 24.5
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 level_name = "KITCHEN"
-score_to_win = 1000
+score_to_win = 2000
 colors = 15
 color_generator_amounts = null
 
