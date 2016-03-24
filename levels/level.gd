@@ -12,6 +12,7 @@ class LevelPath:
 	var color_generator_amounts = []
 	var next_color = -1
 	var cleared = false
+	var cleared_pos = 0
 	func get_next_color():
 		if gen_ball_count <= 0:
 			gen_ball_count = color_generator_amounts[floor(rand_range(0,color_generator_amounts.size()))]
@@ -29,6 +30,7 @@ class LevelPath:
 #region preload
 var ball_scn = preload("res://systems/ball/ball.tscn")
 var score_label_scn = preload("res://systems/score_label/score_label.tscn")
+var explosion_scn = preload("res://systems/explosion/explosion.tscn")
 
 #region variables
 export(String) var level_name = "KITCHEN"
@@ -121,6 +123,8 @@ func _fixed_process(delta):
 				if (path.last_ball == null):
 					return
 				path.last_ball.offset-=delta*CONST.SPEED
+			if path.last_ball!=null:
+				path.cleared_pos = path.last_ball.offset
 			if  path.balls.size()==0 && state==CONST.STATE_SCORED:
 				path.cleared=true
 			if path.last_ball!=null&&path.last_ball.offset>=path.curve.get_baked_length():
@@ -135,7 +139,24 @@ func _fixed_process(delta):
 			set_fixed_process(false)
 			var t = Timer.new()
 			add_child(t)
-			t.set_wait_time(5)
+			t.set_wait_time(0.1)
+			t.set_one_shot(false)
+			t.start()
+			for path in paths:
+				while path.cleared_pos < path.curve.get_baked_length():
+					var pos = path.curve.interpolate_baked(path.cleared_pos)
+					var l = score_label_scn.instance()
+					l.setup(100)
+					l.set_color(Color(0.992188,0.982377,0.364319))
+					l.set_pos(pos)
+					add_child(l)
+					var e = explosion_scn.instance()
+					e.set_pos(pos)
+					add_child(e)
+					GameManager.add_score(100)
+					yield(t,"timeout")
+					path.cleared_pos+=CONST.MIN_SEPARATION
+			t.set_wait_time(2)
 			t.start()
 			yield(t,"timeout")
 			GameManager.advance_level()
