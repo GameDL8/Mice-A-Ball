@@ -24,6 +24,8 @@ const MIN_SEPARATION = 40
 const SHOOT_SPEED = 450
 const FAST_SHOOT_SPEED = 650
 const SHOOT_DISTANCE = 50
+const SCORE_PER_BALL = 10
+const CHAINS_FOR_BONUS = 5
 
 const colors = [
 preload("res://systems/ball/mice_a.png"),

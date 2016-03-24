@@ -66,6 +66,7 @@ func _fixed_process(delta):
 		else:
 			set_offset(offset)
 		if insertion == 1:
+			get_node("notifier").disconnect("exit_screen", self, "on_exit_screen")
 			Globals.get("current_level").on_ball_inserted(self,path)
 			inserting = false
 	elif shoot_speed > 0:
@@ -96,7 +97,11 @@ func shoot(direction, speed):
 	shoot_dir = direction
 	shoot_speed = speed
 	connect("area_enter", self, "on_collide_ball")
-	get_node("notifier").connect("exit_screen", self, "queue_free")
+	get_node("notifier").connect("exit_screen", self, "on_exit_screen")
+
+func on_exit_screen():
+	Globals.get("current_level").chain_bonus=0
+	queue_free()
 
 func on_collide_ball(other):
 	if other extends load("res://systems/ball/ball.gd"):

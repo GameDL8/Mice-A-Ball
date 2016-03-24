@@ -27,6 +27,7 @@ class LevelPath:
 
 #region preload
 var ball_scn = preload("res://systems/ball/ball.tscn")
+var score_label_scn = preload("res://systems/score_label/score_label.tscn")
 
 #region variables
 export(String) var level_name = "KITCHEN"
@@ -35,6 +36,7 @@ export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
 
 var state = CONST.STATE_PLAYING
+var chain_bonus = 0
 var paths = []
 var direction = CONST.DIR_FORWARD
 var timer
@@ -112,6 +114,8 @@ func create_ball(path,prev_ball,next_ball):
 	return ball
 
 func on_ball_inserted(ball,path):
+	var is_shoot = ball.inserting
+	var score_pos = ball.get_pos()
 	var c = ball.color
 	while (ball.previous_ball != null && ball.previous_ball.color==c):
 		ball = ball.previous_ball #get the first ball of the same color
@@ -127,6 +131,18 @@ func on_ball_inserted(ball,path):
 			pullable_ball.pulling=true
 		set_fixed_process(false)
 		timer.start()
+		if is_shoot:
+			chain_bonus+=1
+		var score = balls.size()*CONST.SCORE_PER_BALL
+		if chain_bonus >= CONST.CHAINS_FOR_BONUS:
+			score *= chain_bonus
+		GameManager.add_score(score)
+		var label = score_label_scn.instance()
+		label.setup(score,chain_bonus)
+		label.set_pos(score_pos)
+		add_child(label)
 		yield(timer,"timeout")
 		set_fixed_process(true)
-		print ("DESTROYED: "+str(balls.size()))
+	else:
+		if is_shoot:
+			chain_bonus = 0

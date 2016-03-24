@@ -35,6 +35,7 @@ func _ready():
 	get_node("Panel/menu/options/sfx/disabled").hide()
 	get_node("Panel/menu/resume1").connect("pressed", self, "unpause")
 	get_node("Panel/menu/options/resume").connect("pressed", self, "unpause")
+	quit.connect("pressed",self,"quit_to_main_menu") #TODO: popup a question
 	panel.hide()
 	pass
 
@@ -54,6 +55,10 @@ func unpause():
 	get_tree().set_pause(false)
 	is_paused = false
 	panel.hide()
+
+func quit_to_main_menu():
+	unpause()
+	GameManager.to_main_menu()
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()
