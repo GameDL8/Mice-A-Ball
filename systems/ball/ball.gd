@@ -147,6 +147,8 @@ func dispose(animate = false):
 	disposing = true
 	if animate:
 		anim.play("dispose")
+		GameManager.mices_killed +=1
+		print(GameManager.mices_killed)
 		yield(anim,"finished")
 	if is_inside_tree():
 		queue_free()

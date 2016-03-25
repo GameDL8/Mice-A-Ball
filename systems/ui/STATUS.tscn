@@ -1,0 +1,189 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://systems/ui/status.gd" type="Script" id=1]
+[ext_resource path="res://res/ui/panel.png" type="Texture" id=2]
+[ext_resource path="res://res/fonts/dimbo_itallic.fnt" type="Font" id=3]
+[ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=4]
+[ext_resource path="res://res/ui/new-ui/graphics_button.png" type="Texture" id=5]
+[ext_resource path="res://res/ui/new-ui/graphics_button_pressed.png" type="Texture" id=6]
+
+[node name="menu" type="CanvasLayer"]
+
+process/pause_mode = 2
+layer = 4
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="Panel" type="Panel" parent="."]
+
+visibility/self_opacity = 0.6
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="menu" type="Patch9Frame" parent="Panel"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 110.0
+margin/top = 200.0
+margin/right = -130.0
+margin/bottom = -120.0
+rect/min_size = Vector2( 240, 320 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+texture = ExtResource( 2 )
+patch_margin/left = 32
+patch_margin/top = 50
+patch_margin/right = 32
+patch_margin/bottom = 32
+
+[node name="title" type="Label" parent="Panel/menu"]
+
+margin/left = 49.0
+margin/top = -34.0
+margin/right = 209.0
+margin/bottom = 15.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 3 )
+text = "Congratulations!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="options" type="VBoxContainer" parent="Panel/menu"]
+
+anchor/right = 1
+anchor/bottom = 1
+margin/left = 20.0
+margin/top = 19.0
+margin/right = 21.0
+margin/bottom = 50.0
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+alignment = 0
+
+[node name="score" type="Label" parent="Panel/menu/options"]
+
+margin/right = 199.0
+margin/bottom = 25.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "Score:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="time" type="Label" parent="Panel/menu/options"]
+
+margin/top = 29.0
+margin/right = 199.0
+margin/bottom = 54.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "Time"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="total_time" type="Label" parent="Panel/menu/options"]
+
+margin/top = 58.0
+margin/right = 199.0
+margin/bottom = 83.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "Total time:"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="next_level" type="TextureButton" parent="Panel/menu/options"]
+
+margin/top = 87.0
+margin/right = 199.0
+margin/bottom = 155.0
+hint/tooltip = "Try again!!"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 5 )
+textures/pressed = ExtResource( 6 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Label" type="Label" parent="Panel/menu/options/next_level"]
+
+margin/left = 18.0
+margin/top = 10.0
+margin/right = 178.0
+margin/bottom = 59.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "Next Level!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="restart" type="TextureButton" parent="Panel/menu/options"]
+
+margin/top = 159.0
+margin/right = 199.0
+margin/bottom = 227.0
+hint/tooltip = "Try again!!"
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 5 )
+textures/pressed = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Panel/menu/options/restart"]
+
+margin/left = 18.0
+margin/top = 10.0
+margin/right = 178.0
+margin/bottom = 59.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 4 )
+text = "Next Level!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

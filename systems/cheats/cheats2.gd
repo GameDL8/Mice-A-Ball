@@ -2,7 +2,7 @@
 extends Node2D
 
 var combinations =[
-["ui_up","ui_down","ui_up","ui_down","ui_left","ui_right","ui_left","ui_right","ui_accept","ui_cancel","ui_accept","ui_cancel"]
+["ui_up","ui_down","ui_up","ui_down","ui_left","ui_right","ui_left","ui_right","ui_cancel","ui_accept"]
 ]
 var states = [0]
 

@@ -44,8 +44,11 @@ var chain_bonus = 0
 var paths = []
 var direction = CONST.DIR_FORWARD
 var timer
-
 var time_scale = 1
+
+#Timer
+var player_timer
+var timer_count = [0,0,0]
 
 #region constructors
 func _init():
@@ -75,7 +78,14 @@ func _ready():
 	timer.set_one_shot(true)
 	timer.set_wait_time(0.2)
 	add_child(timer)
-
+	#timer for counting playtime:
+	player_timer = Timer.new()
+	player_timer.set_autostart(true)
+	player_timer.set_wait_time(1.0)
+	add_child(player_timer)
+	player_timer.start()
+	player_timer.connect("timeout",self,"_on_player_timer_timeout")
+	print(typeof(player_timer))
 func restart():
 	for path in paths:
 		path.cleared=false
@@ -159,9 +169,11 @@ func _fixed_process(delta):
 					GameManager.add_score(100)
 					yield(t,"timeout")
 					path.cleared_pos+=CONST.MIN_SEPARATION
-			t.set_wait_time(2)
+			t.set_wait_time(5)
+			HUD.show()
 			t.start()
 			yield(t,"timeout")
+			
 			GameManager.advance_level()
 	if state == CONST.STATE_LOSE:
 		for path in paths:
@@ -236,3 +248,8 @@ func on_ball_inserted(ball,path):
 	else:
 		if is_shoot:
 			chain_bonus = 0
+
+
+func _on_player_timer_timeout():
+	GameManager["seconds"]+=1
+	pass # replace with function body
