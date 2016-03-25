@@ -3,7 +3,7 @@ tool
 extends Node
 
 #region DEBUG
-const DEBUG = true
+var DEBUG = false
 
 #region enum
 const DIR_FORWARD = 0
