@@ -7,18 +7,24 @@ var score = 0
 var level_score = 0
 var time = {"hours":0,"minutes":0,"seconds":0}
 var total_time = {"hours":0,"minutes":0,"seconds":0}
-var times_played = {}
+var times_played_by_level = {}
 var consecutive_loss
+var loss_by_level = {}
 var total_score=0
+var score_by_level = {}
+var mices_killed_by_level = {}
 var mices_killed = 0
 var times_cheated = 0
+var times_cheated_by_level ={}
+var times_lost_by_level = {}
 var ranking ="Noob Cat"
 const levels = [
 "res://levels/level1/level1.tscn",
 "res://levels/level2/level2.tscn"
 ]
 var current_level = 0
-
+var balls_type=[false,false,false,false]
+var score_to_win = 0
 func _init():
 	#Loading save file
 	save = ConfigFile.new()
@@ -31,16 +37,19 @@ func _init():
 		total_time.minutes = save.get_value("player","minutes",0)
 		total_time.seconds = save.get_value("player","seconds",0)
 		mices_killed = save.get_value("player","mices_killed",0)
+#	Loop to get the times played on a level	
 		for level in levels:
+			# First it splits each path of the levels array using / as an separator
 			var result = level.split("/")
-			times_played[result[result.size()-1].split(".")[0]] = save.get_value("player",result[result.size()-1].split(".")[0],0)
-			save.save(save_file)
-		print("Times played: ",times_played)
+			# Then it does its magic:
+			times_played_by_level[result[result.size()-1].split(".")[0]] = save.get_value("times_played_by_level",result[result.size()-1].split(".")[0],0)
+			mices_killed_by_level[result[result.size()-1].split(".")[0]] = save.get_value("mices_killed_by_level",result[result.size()-1].split(".")[0],0)
 	else:
 		save.set_value("config", "initialized",true)
 		save.save(save_file)
-		print("New file saved to %s",save_file)
+		print("New file saved to ",save_file)
 func new_game():
+	balls_type=[0,0,0,0]
 	lives = 3
 	score = 0
 	level_score = 0
@@ -48,7 +57,8 @@ func new_game():
 	HUD.score_label.set_text("0")
 	get_tree().change_scene(levels[0])
 	HUD.show()
-	time = [0,0,0]
+	time = {"hours":0,"minutes":0,"seconds":0}
+	
 
 func advance_level():
 	current_level+=1
@@ -69,8 +79,8 @@ func game_over():
 func on_lose():
 	lives-=1
 	level_score=0
+	time = {"hours":0,"minutes":0,"seconds":0}
 	HUD.set_lives(lives)
-	time = [0,0,0]
 	if lives==0:
 		game_over()
 	else:

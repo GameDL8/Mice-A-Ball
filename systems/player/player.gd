@@ -57,7 +57,10 @@ func shoot():
 	ball.shoot(dir,current_shoot_speed)
 	ball.color = curr_color
 	self.curr_color = next_color
+#	for ball in get_n
 	self.next_color = randi() % 4
+	while GameManager.score >= GameManager.score_to_win && !GameManager.balls_type[self.next_color]:
+		self.next_color = randi() % 4
 	get_tree().get_root().call_deferred("add_child",ball)
 	anim.play("shoot")
 	

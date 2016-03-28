@@ -1,6 +1,25 @@
 
 extends Node2D
 
+#region variables
+export(String) var level_name = "KITCHEN"
+export(int) var score_to_win = 1000
+export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
+export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
+export (int) var SPEED
+
+var state = CONST.STATE_PLAYING
+var chain_bonus = 0
+var paths = []
+var direction = CONST.DIR_FORWARD
+var timer
+var time_scale = 1
+var checked_balls = []
+
+#TimerP
+var player_timer
+var timer_count = [0,0,0]
+
 #region subclasses
 class LevelPath:
 	var curve
@@ -25,6 +44,7 @@ class LevelPath:
 				new_color = col[rand_range(0,col.size())]
 			next_color=new_color
 		gen_ball_count-=1
+			
 		return next_color
 
 #region preload
@@ -32,28 +52,13 @@ var ball_scn = preload("res://systems/ball/ball.tscn")
 var score_label_scn = preload("res://systems/score_label/score_label.tscn")
 var explosion_scn = preload("res://systems/explosion/explosion.tscn")
 
-#region variables
-export(String) var level_name = "KITCHEN"
-export(int) var score_to_win = 1000
-export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
-export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
-export (int) var SPEED
 
-var state = CONST.STATE_PLAYING
-var chain_bonus = 0
-var paths = []
-var direction = CONST.DIR_FORWARD
-var timer
-var time_scale = 1
-
-#Timer
-var player_timer
-var timer_count = [0,0,0]
 
 #region constructors
 func _init():
 	randomize()
 	Globals.set("current_level", self)
+	GameManager.score_to_win = score_to_win
 	if SPEED == null:
 		SPEED = CONST.SPEED
 
@@ -85,7 +90,6 @@ func _ready():
 	add_child(player_timer)
 	player_timer.start()
 	player_timer.connect("timeout",self,"_on_player_timer_timeout")
-	print(typeof(player_timer))
 func restart():
 	for path in paths:
 		path.cleared=false
@@ -114,11 +118,22 @@ func _input(ev):
 			time_scale=5
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_SHIFT && !ev.pressed:
 			time_scale=1
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_P && ev.pressed:
+			print("Bals types exist on the playfield: ",GameManager.balls_type)
 
 func _fixed_process(delta):
 	delta*=time_scale
 	if state in [CONST.STATE_PLAYING,CONST.STATE_SCORED]:
+		# Code to detect ball types will only start when score is greater than score_to_win
+		
 		for path in paths:
+			if GameManager.score >= score_to_win:
+				for node in get_children():
+					if node extends Area2D:
+						if not node.get_instance_ID() in checked_balls:
+							GameManager.balls_type[node.color] = true
+							checked_balls.append(node.get_instance_ID())
+				print(GameManager.balls_type)
 			if path.cleared:
 				continue
 			var curve = path.curve
@@ -198,11 +213,16 @@ func _fixed_process(delta):
 			t.start()
 			yield(t,"timeout")
 			GameManager.on_lose()
-
-
+	for path in paths:
+		for node in get_children():
+			if node extends Area2D:
+				
+				get_instance_ID()
+	print("Balls exist in field: ",GameManager.balls_type)
 
 #region functions
 func create_ball(path,prev_ball,next_ball):
+	
 	var ball = ball_scn.instance()
 	ball.path = path
 	ball.color = path.get_next_color()
@@ -213,6 +233,7 @@ func create_ball(path,prev_ball,next_ball):
 	if next_ball != null:
 		next_ball.previous_ball = ball
 		ball.next_ball = next_ball
+	GameManager.balls_type[ball.color] = true
 	return ball
 
 func on_ball_inserted(ball,path):
@@ -224,11 +245,13 @@ func on_ball_inserted(ball,path):
 	var balls = []
 	while (ball!=null && ball.color == c):
 		balls.append(ball)
+		GameManager.balls_type[ball.color]=true # If not set here, in case the player has a ball that doesn't exist on the playfield anymore, it will never completep
 		ball = ball.next_ball
 	var pullable_ball = balls[balls.size()-1].next_ball
 	if (balls.size() >= 3):
 		for b in balls:
 			b.dispose(true)
+			GameManager.balls_type[b.color]=false
 		if pullable_ball != null:
 			pullable_ball.pulling=true
 		set_fixed_process(false)
@@ -251,5 +274,5 @@ func on_ball_inserted(ball,path):
 
 
 func _on_player_timer_timeout():
-	GameManager["seconds"]+=1
+	GameManager.time["seconds"]+=1
 	pass # replace with function body
