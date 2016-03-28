@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://systems/game_over/game_over.gd" type="Script" id=1]
 [ext_resource path="res://levels/level1/kitchen.png" type="Texture" id=2]
 [ext_resource path="res://res/fonts/dimbo_itallic_48.fnt" type="Font" id=3]
+[ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=4]
 
 [sub_resource type="CanvasItemShaderGraph" id=1]
 
@@ -13,17 +14,17 @@ _data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vecto
 
 shader/shader = SubResource( 1 )
 shader/shading_mode = 0
-shader_param/Gamma = 0.5
-shader_param/Saturation = 0.0
+shader_param/Gamma = 1.0
+shader_param/Saturation = 1.0
 
 [sub_resource type="Animation" id=3]
 
 resource/name = "game_over"
-length = 9.0
+length = 35.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Label:visibility/self_opacity")
+tracks/0/path = NodePath("Credits/GameOver:visibility/self_opacity")
 tracks/0/interp = 1
 tracks/0/keys = { "cont":true, "times":FloatArray( 0, 3, 4 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 0.0, 0.0, 1.0 ] }
 tracks/1/type = "value"
@@ -34,6 +35,14 @@ tracks/2/type = "value"
 tracks/2/path = NodePath("bg:material/material:shader_param/Gamma")
 tracks/2/interp = 1
 tracks/2/keys = { "cont":true, "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "values":[ 1.0, 0.5 ] }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Credits:transform/pos")
+tracks/3/interp = 1
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 8, 25 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -2400 ) ] }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Credits/Score:visibility/self_opacity")
+tracks/4/interp = 1
+tracks/4/keys = { "cont":true, "times":FloatArray( 0, 3.5, 4.5 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ 0.0, 0.0, 1.0 ] }
 
 [node name="GameOver" type="CanvasLayer"]
 
@@ -66,6 +75,7 @@ invert/border = 100.0
 
 [node name="roof1" type="Polygon2D" parent="."]
 
+z/z = 3
 polygon = Vector2Array( -5, -8, 245, 82, 1035, 82, 1285, -8 )
 uv = Vector2Array(  )
 color = Color( 0.195313, 0.193024, 0.193024, 1 )
@@ -77,26 +87,6 @@ texture/rotation = 0.0
 invert/enable = false
 invert/border = 100.0
 
-[node name="Label" type="Label" parent="."]
-
-anchor/left = 3
-anchor/top = 3
-anchor/right = 3
-anchor/bottom = 3
-margin/left = 103.0
-margin/top = 25.0
-margin/right = 103.0
-margin/bottom = 25.0
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.832031, 0.549677, 0.380264, 1 )
-text = "GAME OVER"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 playback/process_mode = 1
@@ -107,5 +97,67 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "game_over"
+
+[node name="Credits" type="Node2D" parent="."]
+
+[node name="GameOver" type="Label" parent="Credits"]
+
+visibility/self_opacity = 0.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = -505.0
+margin/top = -303.0
+margin/right = -711.0
+margin/bottom = -353.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.832031, 0.549677, 0.380264, 1 )
+text = "GAME OVER"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Score" type="Label" parent="Credits"]
+
+visibility/self_opacity = 0.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = -451.0
+margin/top = -375.0
+margin/right = -760.0
+margin/bottom = -425.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.832031, 0.803796, 0.380264, 1 )
+text = "Your Score: 9999"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Credits" type="RichTextLabel" parent="Credits"]
+
+anchor/top = 3
+anchor/right = 1
+anchor/bottom = 3
+margin/left = 7.0
+margin/top = -1046.0
+margin/right = -1207.0
+margin/bottom = -2937.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/bold_font = ExtResource( 3 )
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode/enabled = true
+bbcode/bbcode = "[center][b]Programing:[/b]\n\nMariano Suligoy\nBruno SXS\n\n\n\n\n[b]Ilustrations:[/b]\n\nElias Navarro\n\n\n\n\n[b]Aditional Graphics:[/b]\n\nBruno SXS\n\n\n\n\n[b]Graphics Adaptations:[/b]\n\nMariano Suligoy\n\n\n\n\n\n[b]Special Thanks:[/b]\n\nKenney\nhttp://opengameart.org/users/kenney\n(UI Graphics)\n\nJason Dagenet\nhttp://opengameart.org/users/jdagenet\n(Music)\n\nJayvee Enaguas\nhttp://harvettfox96.deviantart.com/\n(Dimbo font)\n\nAND MANY OTHER ANONIMOUS RESOURCES!\n\n\n\n\n\n\nProudly made with\n\n[img]res://godot-engine.png[/img]\n[/center]"
+visible_characters = -1
 
 
