@@ -153,3 +153,8 @@ func dispose(animate = false):
 	if is_inside_tree():
 		queue_free()
 
+func _enter_tree():
+	GameManager.balls_type[color]+=1
+
+func _exit_tree():
+	GameManager.balls_type[color]-=1

@@ -23,7 +23,7 @@ const levels = [
 "res://levels/level2/level2.tscn"
 ]
 var current_level = 0
-var balls_type=[false,false,false,false]
+var balls_type=[0,0,0,0]
 var score_to_win = 0
 func _init():
 	#Loading save file
@@ -80,6 +80,7 @@ func on_lose():
 	lives-=1
 	level_score=0
 	time = {"hours":0,"minutes":0,"seconds":0}
+	balls_type =[0,0,0,0]
 	HUD.set_lives(lives)
 	if lives==0:
 		game_over()
