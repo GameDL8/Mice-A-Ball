@@ -60,8 +60,11 @@ func shoot():
 #	for ball in get_n
 	self.next_color = randi() % 4
 	#BUG: Sometimes the game crashes, I believe it has something to do with the ball types detection
-	while GameManager.score >= GameManager.score_to_win && GameManager.balls_type[self.next_color] == 0:
+	var total_balls = 0
+	for count in GameManager.balls_type:
+		total_balls += count
+	while total_balls > 0 && GameManager.level_score >= GameManager.score_to_win && GameManager.balls_type[self.next_color] == 0:
 		self.next_color = randi() % 4
-	get_tree().get_root().call_deferred("add_child",ball)
+	Globals.get("current_level").call_deferred("add_child",ball)
 	anim.play("shoot")
 	

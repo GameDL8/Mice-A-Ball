@@ -24,12 +24,14 @@ func initialize_level(name="", max_score=1000):
 	score_gauge.set_value(0)
 
 func disable_player():
-	if Globals.get("player") != null && Globals.get("player").is_inside_tree():
-		Globals.get("player").set_process_input(false)
+	if Globals.get("player") != null:
+		if Globals.get("player").is_inside_tree():
+			Globals.get("player").set_process_input(false)
 
 func enable_player():
-	if Globals.get("player") != null && Globals.get("player").is_inside_tree():
-		Globals.get("player").set_process_input(true)
+	if Globals.get("player") != null:
+		if Globals.get("player").is_inside_tree():
+			Globals.get("player").set_process_input(true)
 
 func set_lives(lives):
 	lives_label.set_text("x "+str(lives))
