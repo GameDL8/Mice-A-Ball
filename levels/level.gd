@@ -119,6 +119,8 @@ func _input(ev):
 			time_scale=1
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_P && ev.pressed:
 			print("Bals types exist on the playfield: ",GameManager.balls_type)
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_L && ev.pressed:
+			GameManager.on_lose()
 
 func _fixed_process(delta):
 	delta*=time_scale

@@ -1,7 +1,7 @@
 extends Node2D
 
 var combinations =[
-["ui_up"]
+["ui_up","ui_up","ui_down","ui_down","ui_left","ui_right","ui_left","ui_right"],
 ]
 
 #var combinations =[
@@ -21,6 +21,7 @@ func _input(ev):
 				states[i]+=1
 				if states[i]==combinations[i].size():
 					call("cheat_"+str(i))
+					GameManager.times_cheated+=1 #For status
 					print("cheat enabled: "+str(i))
 					states[i]=0
 			else:
