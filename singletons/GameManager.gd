@@ -1,7 +1,7 @@
 
 extends Node
-var save_file = "user://save.sav"
-var save
+var save_file = "user://save_game.sav"
+var save_game
 var lives = 3
 var score = 0
 var level_score = 0
@@ -17,7 +17,12 @@ var mices_killed_by_level = {}
 var times_cheated = 0
 var mices_killed_in_currenct_level = 0
 var ranking ="Noob Cat"
-var achievements = {}
+
+#Achievements are set here and loaded dinamically by the program, if you
+# want to create one, just add it here and set its default value to false
+var achievements = {
+	"pur":false,
+	"noob_cat":false}
 const levels = [
 "res://levels/level1/level1.tscn",
 "res://levels/level2/level2.tscn"
@@ -41,24 +46,25 @@ func new_game():
 	HUD.score_label.set_text("0")
 	get_tree().change_scene(levels[0])
 	HUD.show()
-	mices_killed_by_level = 0
 	time = {"hours":0,"minutes":0,"seconds":0}
 
 func save_game():
 	print(save_file)
-	save = ConfigFile.new()
-	save.load(save_file)
-	save.set_value("player","total_score",total_score)
-	save.set_value("player","ranking",ranking)
-	save.set_value("player","hours",total_time.hours)
-	save.set_value("player","minutes",total_time.minutes)
-	save.set_value("player","seconds",total_time.seconds)
-	save.set_value("player","consecutive_loss",consecutive_loss)
-	save.set_value("player","times_cheated",times_cheated)
+	print("Level filename: ",str(get_level_file_name()))
+	save_game = ConfigFile.new()
+	save_game.load(save_file)
+	save_game.set_value("player","total_score",total_score)
+	save_game.set_value("player","ranking",ranking)
+	save_game.set_value("player","hours",total_time.hours)
+	save_game.set_value("player","minutes",total_time.minutes)
+	save_game.set_value("player","seconds",total_time.seconds)
+	save_game.set_value("player","consecutive_loss",consecutive_loss)
+	save_game.set_value("player","times_cheated",times_cheated)
 
 #		Achievements:
-	save.set_value("achievements","noob_cat",achievements["noob_cat"])
-	achievements["purr"] = save.set_value("achievements","purr",achievements["purr"])
+	for key in achievements:
+		save_game.set_value("achievements", key, achievements[key])
+		save_game.save(save_file)
 #	Loop to get the times played on a level	
 	for level in levels:
 		# First it splits each path of the levels array using / as an separator
@@ -66,28 +72,27 @@ func save_game():
 		var level_name= result[result.size()-1].split(".")[0]
 		print(level_name)
 		# Then it does its magic:
-		save.set_value("times_played_by_level",level_name,times_played_by_level[level_name])
-		save.set_value("mices_killed_by_level",level_name,mices_killed_by_level[level_name])
-		save.set_value("loss_by_level",level_name,loss_by_level[level_name])
-		save.set_value("total_scores_by_level",level_name,total_scores_by_level[level_name])
-	
-	save.save(save_file)
+		save_game.set_value("times_played_by_level",level_name,times_played_by_level[level_name])
+		save_game.set_value("mices_killed_by_level",level_name,mices_killed_by_level[level_name])
+		save_game.set_value("loss_by_level",level_name,loss_by_level[level_name])
+		save_game.set_value("total_scores_by_level",level_name,total_scores_by_level[level_name])
 	pass
 
 func load_game():
 	print(save_file)
-	save = ConfigFile.new()
-	save.load(save_file)
-	total_score = save.get_value("player","total_score",0)
-	ranking = save.get_value("player","ranking","Noob Cat")
-	total_time.hours = save.get_value("player","hours",0)
-	total_time.minutes = save.get_value("player","minutes",0)
-	total_time.seconds = save.get_value("player","seconds",0)
-	consecutive_loss = save.get_value("player","consecutive_loss",0)
+	save_game = ConfigFile.new()
+	save_game.load(save_file)
+	total_score = save_game.get_value("player","total_score",0)
+	ranking = save_game.get_value("player","ranking","Noob Cat")
+	total_time.hours = save_game.get_value("player","hours",0)
+	total_time.minutes = save_game.get_value("player","minutes",0)
+	total_time.seconds = save_game.get_value("player","seconds",0)
+	consecutive_loss = save_game.get_value("player","consecutive_loss",0)
+	times_cheated = save_game.get_value("player","times_cheated",0)
 
 #		Achievements:
-	achievements["noob_cat"] = save.get_value("achievements","noob_cat",false)
-	achievements["purr"] = save.get_value("achievements","purr",false)
+	for key in achievements:
+		achievements[key] = save_game.get_value("achievements", key, false)
 #	Loop to get the times played on a level	
 	for level in levels:
 		# First it splits each path of the levels array using / as an separator
@@ -95,14 +100,15 @@ func load_game():
 		var level_name= result[result.size()-1].split(".")[0]
 		print(level_name)
 		# Then it does its magic:
-		times_played_by_level[level_name] = save.get_value("times_played_by_level",level_name,0)
-		mices_killed_by_level[level_name] = save.get_value("mices_killed_by_level",level_name,0)
-		loss_by_level[level_name] = save.get_value("loss_by_level",level_name,0)
-		total_scores_by_level[level_name] = save.get_value("total_scores_by_level",level_name,0)
+		times_played_by_level[level_name] = save_game.get_value("times_played_by_level",level_name,0)
+		mices_killed_by_level[level_name] = save_game.get_value("mices_killed_by_level",level_name,0)
+		loss_by_level[level_name] = save_game.get_value("loss_by_level",level_name,0)
+		total_scores_by_level[level_name] = save_game.get_value("total_scores_by_level",level_name,0)
 	pass
 
 func advance_level():
 	var level = get_level_file_name()
+	print(level)
 	
 	current_level+=1
 	consecutive_loss = 0
@@ -118,7 +124,7 @@ func advance_level():
 	#the next line:
 	Globals.set("level_file_path",levels[current_level])
 	level_score = 0
-	mices_killed_by_level = 0
+	mices_killed_in_currenct_level
 	time = {"hours":0,"minutes":0,"seconds":0}
 	if current_level < levels.size():
 		get_tree().change_scene(levels[current_level])
