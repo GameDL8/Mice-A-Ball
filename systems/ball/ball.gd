@@ -158,3 +158,5 @@ func _enter_tree():
 
 func _exit_tree():
 	GameManager.balls_type[color]-=1
+	if GameManager.balls_type[color] == 0:
+		GameManager.alert_color_cleared(color)

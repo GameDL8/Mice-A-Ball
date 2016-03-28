@@ -25,6 +25,9 @@ const levels = [
 var current_level = 0
 var balls_type=[0,0,0,0]
 var score_to_win = 0
+
+signal color_cleared(color)
+
 func _init():
 	#Loading save file
 	save = ConfigFile.new()
@@ -95,5 +98,8 @@ func add_score(_score):
 	var level = Globals.get("current_level")
 	if level_score >= level.score_to_win && level.state == CONST.STATE_PLAYING:
 		Globals.get("current_level").state = CONST.STATE_SCORED
+		Globals.get("player").enter_scored_phase()
 
-
+func alert_color_cleared(col):
+	if balls_type[col] == 0:
+		emit_signal("color_cleared", col);
