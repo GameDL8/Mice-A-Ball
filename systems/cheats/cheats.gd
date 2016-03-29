@@ -8,7 +8,7 @@ var combinations =[
 #var combinations =[
 #["ui_up","ui_up","ui_down","ui_down","ui_left","ui_right","ui_left","ui_right","ui_cancel","ui_accept"]
 #]
-var states = [0]
+var states = [0,0]
 
 var actions = []
 
@@ -16,6 +16,7 @@ func _ready():
 	set_process_input(true)
 
 func _input(ev):
+	assert (combinations.size() == states.size())
 	if ev.type == InputEvent.KEY && ev.pressed && !ev.is_echo():
 		for i in range(states.size()):
 			if InputMap.event_is_action(ev,combinations[i][states[i]]):
