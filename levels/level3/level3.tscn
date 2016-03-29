@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
-[ext_resource path="res://levels/level2/bg.png" type="Texture" id=2]
-[ext_resource path="res://levels/level2/fg.png" type="Texture" id=3]
-[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=5]
+[ext_resource path="res://res/backgrounds/kitchen_background.jpg" type="Texture" id=2]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=4]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -14,9 +13,9 @@ _data = { "points":Vector2Array( 0, 0, 0, 0, 67.8664, 694.972, -5.04713, 74.0227
 [node name="level" type="Node2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"Script" }
-level_name = "KITCHEN"
-score_to_win = 2000
+__meta__ = { "__editor_plugin_screen__":"2D" }
+level_name = "KITCHEN 2"
+score_to_win = 3000
 colors = 7
 color_generator_amounts = null
 SPEED = 60
@@ -29,19 +28,18 @@ texture = ExtResource( 2 )
 [node name="fg" type="Sprite" parent="bg"]
 
 z/z = 5
-texture = ExtResource( 3 )
 
 [node name="Path2D" type="Path2D" parent="."]
 
 curve = SubResource( 1 )
 
-[node name="player" parent="." instance=ExtResource( 4 )]
+[node name="player" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 445.845, 369.078 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 5 )
+stream/stream = ExtResource( 4 )
 stream/play = true
 stream/loop = true
 stream/volume_db = 0.0
@@ -49,33 +47,5 @@ stream/autoplay = true
 stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
-
-[node name="roof" type="Polygon2D" parent="."]
-
-z/z = 3
-polygon = Vector2Array( -20, -40, 140, -40, 140, 760, -20, 760 )
-uv = Vector2Array(  )
-color = Color( 0.195313, 0.193024, 0.193024, 1 )
-offset = Vector2( 0, 0 )
-texture/texture = null
-texture/offset = Vector2( 0, 0 )
-texture/scale = Vector2( 1, 1 )
-texture/rotation = 0.0
-invert/enable = false
-invert/border = 100.0
-
-[node name="roof1" type="Polygon2D" parent="."]
-
-z/z = 3
-polygon = Vector2Array( 1140, -50, 1290, -50, 1290, 760, 1140, 760 )
-uv = Vector2Array(  )
-color = Color( 0.195313, 0.193024, 0.193024, 1 )
-offset = Vector2( 0, 0 )
-texture/texture = null
-texture/offset = Vector2( 0, 0 )
-texture/scale = Vector2( 1, 1 )
-texture/rotation = 0.0
-invert/enable = false
-invert/border = 100.0
 
 

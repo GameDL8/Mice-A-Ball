@@ -16,6 +16,7 @@ var total_scores_by_level = {}
 var mices_killed_by_level = {}
 var times_cheated = 0
 var mices_killed_in_currenct_level = 0
+var ignore_input = false
 var ranking ="Cute little Kitten"
 
 #Achievements are set here and loaded dinamically by the program, if you
@@ -32,7 +33,8 @@ var achievements = {
 	}
 const levels = [
 "res://levels/level1/level1.tscn",
-"res://levels/level2/level2.tscn"
+"res://levels/level2/level2.tscn",
+"res://levels/level3/level3.tscn"
 ]
 var current_level = 0
 var balls_type=[0,0,0,0]

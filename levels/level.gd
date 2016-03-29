@@ -7,6 +7,7 @@ export(int) var score_to_win = 1000
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
 export (int) var SPEED
+export (int) var wait_time = 3
 
 var state = CONST.STATE_PLAYING
 var chain_bonus = 0
@@ -17,7 +18,6 @@ var time_scale = 1
 
 #TimerP
 var player_timer
-var timer_count = [0,0,0]
 
 #region subclasses
 class LevelPath:
@@ -162,6 +162,7 @@ func _fixed_process(delta):
 				win=false
 				break
 		if win:
+			GameManager.ignore_input = true
 			set_fixed_process(false)
 			var t = Timer.new()
 			add_child(t)

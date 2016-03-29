@@ -39,21 +39,22 @@ func _ready():
 
 #region updaters
 func _input(ev):
-	if ev.type == InputEvent.MOUSE_MOTION:
-		look_at(get_node("/root").get_mouse_pos())
-	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 1 and ev.pressed:
-		look_at(get_node("/root").get_mouse_pos())
-		if (get_node("/root").get_mouse_pos()-get_pos()).length_squared() > 2500:
-			if (get_node("/root").get_mouse_pos().y > 50): #HACK: ignore clicks over the HUD
-				shoot()
-		else:
+	if not GameManager.ignore_input:
+		if ev.type == InputEvent.MOUSE_MOTION:
+			look_at(get_node("/root").get_mouse_pos())
+		if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 1 and ev.pressed:
+			look_at(get_node("/root").get_mouse_pos())
+			if (get_node("/root").get_mouse_pos()-get_pos()).length_squared() > 2500:
+				if (get_node("/root").get_mouse_pos().y > 50): #HACK: ignore clicks over the HUD
+					shoot()
+			else:
+				var aux = curr_color
+				self.curr_color=next_color
+				self.next_color=aux
+		if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 2 and ev.pressed:
 			var aux = curr_color
 			self.curr_color=next_color
 			self.next_color=aux
-	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 2 and ev.pressed:
-		var aux = curr_color
-		self.curr_color=next_color
-		self.next_color=aux
 
 #region functions
 func shoot():
