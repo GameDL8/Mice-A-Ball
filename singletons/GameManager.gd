@@ -36,6 +36,9 @@ const levels = [
 var current_level = 0
 var balls_type=[0,0,0,0]
 var score_to_win = 0
+
+signal color_cleared(color)
+
 func _init():
 	#Loading save file
 	load_game()
@@ -172,9 +175,12 @@ func add_score(_score):
 	var level = Globals.get("current_level")
 	if level_score >= level.score_to_win && level.state == CONST.STATE_PLAYING:
 		Globals.get("current_level").state = CONST.STATE_SCORED
+		Globals.get("player").enter_scored_phase()
 
 func get_level_file_name():
 	var level = Globals.get("level_file_path")
 	level = level.split("/")
 	print("This is level_file_path: ", level)
-	return level[level.size()-1].split(".")[0]
+	return level[level.size()-1].split(".")[0]func alert_color_cleared(col):
+	if balls_type[col] == 0:
+		emit_signal("color_cleared", col);

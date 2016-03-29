@@ -42,7 +42,14 @@ func _input(ev):
 	if ev.type == InputEvent.MOUSE_MOTION:
 		look_at(get_node("/root").get_mouse_pos())
 	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 1 and ev.pressed:
-		shoot()
+		look_at(get_node("/root").get_mouse_pos())
+		if (get_node("/root").get_mouse_pos()-get_pos()).length_squared() > 2500:
+			if (get_node("/root").get_mouse_pos().y > 50): #HACK: ignore clicks over the HUD
+				shoot()
+		else:
+			var aux = curr_color
+			self.curr_color=next_color
+			self.next_color=aux
 	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 2 and ev.pressed:
 		var aux = curr_color
 		self.curr_color=next_color
@@ -63,8 +70,30 @@ func shoot():
 	var total_balls = 0
 	for count in GameManager.balls_type:
 		total_balls += count
-	while total_balls > 0 && GameManager.level_score >= GameManager.score_to_win && GameManager.balls_type[self.next_color] == 0:
-		self.next_color = randi() % 4
+	while total_balls > 0 && GameManager.level_score >= GameManager.score_to_win && GameManager.balls_type[next_color] == 0:
+		next_color = randi() % 4
+	self.next_color = next_color
 	Globals.get("current_level").call_deferred("add_child",ball)
 	anim.play("shoot")
-	
+
+func enter_scored_phase():
+	GameManager.connect("color_cleared", self, "_on_color_cleared")
+
+func _on_color_cleared(col):
+	if GameManager.level_score < GameManager.score_to_win:
+		return
+	var total_balls = 0
+	for count in GameManager.balls_type:
+		total_balls += count
+	if total_balls == 0:
+		curr_color_sprite.hide()
+		next_color_sprite.hide()
+		return
+	if next_color==col:
+		while GameManager.balls_type[next_color] == 0:
+			next_color = randi() % 4
+	if curr_color==col:
+		while GameManager.balls_type[curr_color] == 0:
+			curr_color = randi() % 4
+	self.next_color=next_color
+	self.curr_color=curr_color

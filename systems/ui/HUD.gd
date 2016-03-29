@@ -6,14 +6,6 @@ onready var score_label = get_node("container/score/Label")
 onready var lives_label = get_node("container/lives/Label1")
 
 func _ready():
-	#[0] HACK: stop player movement when mouse is over the HUD
-	get_node("container").connect("mouse_enter",self, "disable_player")
-	get_node("container").connect("mouse_exit",self, "enable_player")
-	get_node("container/progress/gauge").connect("mouse_enter",self, "disable_player")
-	get_node("container/progress/gauge").connect("mouse_exit",self, "enable_player")
-	get_node("container/menu").connect("mouse_enter",self, "disable_player")
-	get_node("container/menu").connect("mouse_exit",self, "enable_player")
-	#[/0]
 	get_node("container/menu").connect("pressed",PAUSE_MENU, "pause")
 	score_gauge.set_value(0)
 	pass

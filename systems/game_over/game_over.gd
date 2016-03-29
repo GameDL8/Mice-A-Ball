@@ -4,6 +4,7 @@ extends CanvasLayer
 
 
 func _ready():
+	get_node("Credits/Score").set_text("Your Score: "+str(GameManager.score))
 	restart()
 
 func restart():
