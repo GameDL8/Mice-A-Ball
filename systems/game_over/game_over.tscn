@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://systems/game_over/game_over.gd" type="Script" id=1]
 [ext_resource path="res://levels/level1/kitchen.png" type="Texture" id=2]
 [ext_resource path="res://res/fonts/dimbo_itallic_48.fnt" type="Font" id=3]
 [ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=4]
+[ext_resource path="res://music/Metaruka - The End (Death Screen mix by Avgvst).ogg" type="AudioStream" id=5]
 
 [sub_resource type="CanvasItemShaderGraph" id=1]
 
@@ -14,13 +15,13 @@ _data = { "shaders":[ [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vecto
 
 shader/shader = SubResource( 1 )
 shader/shading_mode = 0
-shader_param/Gamma = 1.0
-shader_param/Saturation = 1.0
+shader_param/Gamma = 0.5
+shader_param/Saturation = 0.0
 
 [sub_resource type="Animation" id=3]
 
 resource/name = "game_over"
-length = 35.0
+length = 120.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -38,7 +39,7 @@ tracks/2/keys = { "cont":true, "times":FloatArray( 0, 2 ), "transitions":FloatAr
 tracks/3/type = "value"
 tracks/3/path = NodePath("Credits:transform/pos")
 tracks/3/interp = 1
-tracks/3/keys = { "cont":true, "times":FloatArray( 0, 8, 25 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -2400 ) ] }
+tracks/3/keys = { "cont":true, "times":FloatArray( 0, 8, 107.2 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -2400 ) ] }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Credits/Score:visibility/self_opacity")
 tracks/4/interp = 1
@@ -100,9 +101,10 @@ autoplay = "game_over"
 
 [node name="Credits" type="Node2D" parent="."]
 
+transform/pos = Vector2( 0, -2400 )
+
 [node name="GameOver" type="Label" parent="Credits"]
 
-visibility/self_opacity = 0.0
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -123,14 +125,13 @@ max_lines_visible = -1
 
 [node name="Score" type="Label" parent="Credits"]
 
-visibility/self_opacity = 0.0
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = -451.0
+margin/left = -121.0
 margin/top = -375.0
-margin/right = -760.0
+margin/right = -1076.0
 margin/bottom = -425.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -138,6 +139,8 @@ size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.832031, 0.803796, 0.380264, 1 )
 text = "Your Score: 9999"
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -148,16 +151,28 @@ anchor/top = 3
 anchor/right = 1
 anchor/bottom = 3
 margin/left = 7.0
-margin/top = -1046.0
+margin/top = -986.0
 margin/right = -1207.0
-margin/bottom = -2937.0
+margin/bottom = -2877.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
+size_flags/vertical = 2
 custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode/enabled = true
-bbcode/bbcode = "[center][b]Programing:[/b]\n\nMariano Suligoy\nBruno SXS\n\n\n\n\n[b]Ilustrations:[/b]\n\nElias Navarro\n\n\n\n\n[b]Aditional Graphics:[/b]\n\nBruno SXS\n\n\n\n\n[b]Graphics Adaptations:[/b]\n\nMariano Suligoy\n\n\n\n\n\n[b]Special Thanks:[/b]\n\nKenney\nhttp://opengameart.org/users/kenney\n(UI Graphics)\n\nJason Dagenet\nhttp://opengameart.org/users/jdagenet\n(Music)\n\nJayvee Enaguas\nhttp://harvettfox96.deviantart.com/\n(Dimbo font)\n\nAND MANY OTHER ANONIMOUS RESOURCES!\n\n\n\n\n\n\nProudly made with\n\n[img]res://godot-engine.png[/img]\n[/center]"
+bbcode/bbcode = "[center][b]Programing:[/b]\n\nMariano Suligoy\nBruno SXS\n\n\n\n\n[b]Ilustrations:[/b]\n\nElias Navarro\n\n\n\n\n[b]Aditional Graphics:[/b]\n\nBruno SXS\n\n\n\n\n[b]Graphics Adaptations:[/b]\n\nMariano Suligoy\n\n\n\n\n\n[b]Special Thanks:[/b]\n\nKenney\nhttp://opengameart.org/users/kenney\n(UI Graphics)\n\nJason Dagenet\nhttp://opengameart.org/users/jdagenet\n(Music)\n\nJayvee Enaguas\nhttp://harvettfox96.deviantart.com/\n(Dimbo font)\n\nAvgvsta\nhttp://opengameart.org/users/avgvsta\n(This GameOver Music)\n\nAND MANY OTHER ANONIMOUS RESOURCES!\n\n\n\n\n\n\nProudly made with\n\n[img]res://godot-engine.png[/img]\n[/center]"
 visible_characters = -1
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 5 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 
