@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://levels/level.gd" type="Script" id=1]
+[ext_resource path="res://levels/level2/bg.png" type="Texture" id=2]
+[ext_resource path="res://levels/level2/fg.png" type="Texture" id=3]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=5]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = { "points":Vector2Array( 0, 0, 0, 0, 67.8664, 694.972, -5.04713, 74.0227, 21.0195, -99.2207, 560.962, 626.142, 58.0115, 28.8338, -27.9495, -75.2798, 247.276, 571.981, -19.0069, 64.2858, 5.93917, -27.934, 217.939, 188.336, -42.3237, -13.5761, 24.317, 7.89847, 327.39, 158.999, 7.98544, -40.2375, 26.5549, 36.04, 360.113, 228.958, -24.3824, -23.7877, 51.4792, 40.6822, 536.138, 259.423, -45.5691, -42.1305, 63.0339, 16.4886, 635.434, 487.353, -26.7989, -13.6402, 28.8426, 23.4904, 736.987, 513.306, -43.5036, 18.7861, 60.2915, 16.1244, 766.324, 653.223, -57.2469, -9.66954, 137.479, 1.2959, 793.405, 518.947, 0.594694, 66.3083, 5.85838, -104.41, 975.072, 399.341, 24.7115, -35.202, -30.895, 21.1733, 873.519, 301.173, 36.0777, -24.1616, -74.5455, 25.5172, 846.438, 483.968, 16.3541, 33.8975, -11.002, -46.8725, 734.73, 404.983, -26.5177, 53.9011, 30.8125, -44.8472, 757.279, 188.897, 0, 0, 0, 0, 794.949, 21.6641 ) }
+
+[node name="level" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+level_name = "KITCHEN"
+score_to_win = 2000
+colors = 7
+color_generator_amounts = null
+SPEED = 60
+
+[node name="bg" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 360 )
+texture = ExtResource( 2 )
+
+[node name="fg" type="Sprite" parent="bg"]
+
+z/z = 5
+texture = ExtResource( 3 )
+
+[node name="Path2D" type="Path2D" parent="."]
+
+curve = SubResource( 1 )
+
+[node name="player" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 445.845, 369.078 )
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 5 )
+stream/play = true
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="roof" type="Polygon2D" parent="."]
+
+z/z = 3
+polygon = Vector2Array( -20, -40, 140, -40, 140, 760, -20, 760 )
+uv = Vector2Array(  )
+color = Color( 0.195313, 0.193024, 0.193024, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+[node name="roof1" type="Polygon2D" parent="."]
+
+z/z = 3
+polygon = Vector2Array( 1140, -50, 1290, -50, 1290, 760, 1140, 760 )
+uv = Vector2Array(  )
+color = Color( 0.195313, 0.193024, 0.193024, 1 )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+
