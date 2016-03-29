@@ -1,19 +1,20 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://systems/ui/pause.gd" type="Script" id=1]
 [ext_resource path="res://res/ui/panel_title.png" type="Texture" id=2]
 [ext_resource path="res://res/fonts/dimbo_itallic.fnt" type="Font" id=3]
 [ext_resource path="res://res/ui/new-ui/graphics_button.png" type="Texture" id=4]
 [ext_resource path="res://res/ui/new-ui/graphics_button_pressed.png" type="Texture" id=5]
-[ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=6]
+[ext_resource path="res://systems/ui/Theme.thm" type="Theme" id=6]
 [ext_resource path="res://res/ui/new-ui/graphics_SFX_Enabled.png" type="Texture" id=7]
 [ext_resource path="res://res/ui/new-ui/graphics_SFX_Disabled.png" type="Texture" id=8]
 [ext_resource path="res://res/ui/new-ui/graphics_Disabled.png" type="Texture" id=9]
 [ext_resource path="res://res/ui/new-ui/graphics_music_enabled.png" type="Texture" id=10]
 [ext_resource path="res://res/ui/new-ui/graphics_music_disabled.png" type="Texture" id=11]
-[ext_resource path="res://res/ui/close_normal.png" type="Texture" id=12]
-[ext_resource path="res://res/ui/close_pressed.png" type="Texture" id=13]
-[ext_resource path="res://res/ui/close_over.png" type="Texture" id=14]
+[ext_resource path="res://res/fonts/dimbo.fnt" type="Font" id=12]
+[ext_resource path="res://res/ui/close_normal.png" type="Texture" id=13]
+[ext_resource path="res://res/ui/close_pressed.png" type="Texture" id=14]
+[ext_resource path="res://res/ui/close_over.png" type="Texture" id=15]
 
 [node name="menu" type="CanvasLayer"]
 
@@ -110,40 +111,8 @@ margin/bottom = 59.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
+theme/theme = ExtResource( 6 )
 text = "Resume"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="restart" type="TextureButton" parent="Panel/menu/options"]
-
-margin/top = 72.0
-margin/right = 200.0
-margin/bottom = 140.0
-hint/tooltip = "Try again!!"
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-toggle_mode = false
-textures/normal = ExtResource( 4 )
-textures/pressed = ExtResource( 5 )
-__meta__ = { "_editor_collapsed":true }
-
-[node name="Label" type="Label" parent="Panel/menu/options/restart"]
-
-margin/left = 18.0
-margin/top = 10.0
-margin/right = 178.0
-margin/bottom = 59.0
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
-text = "Restart"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -152,9 +121,9 @@ max_lines_visible = -1
 
 [node name="sfx" type="TextureButton" parent="Panel/menu/options"]
 
-margin/top = 144.0
+margin/top = 72.0
 margin/right = 200.0
-margin/bottom = 209.0
+margin/bottom = 137.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -189,9 +158,9 @@ ticks_on_borders = true
 
 [node name="music" type="TextureButton" parent="Panel/menu/options"]
 
-margin/top = 213.0
+margin/top = 141.0
 margin/right = 200.0
-margin/bottom = 277.0
+margin/bottom = 205.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -226,9 +195,9 @@ ticks_on_borders = true
 
 [node name="quit" type="TextureButton" parent="Panel/menu/options"]
 
-margin/top = 281.0
+margin/top = 209.0
 margin/right = 200.0
-margin/bottom = 349.0
+margin/bottom = 277.0
 hint/tooltip = "Try again!!"
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -248,7 +217,7 @@ margin/bottom = 59.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 12 )
 text = "Quit"
 align = 1
 valign = 1
@@ -268,8 +237,8 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
-textures/normal = ExtResource( 12 )
-textures/pressed = ExtResource( 13 )
-textures/hover = ExtResource( 14 )
+textures/normal = ExtResource( 13 )
+textures/pressed = ExtResource( 14 )
+textures/hover = ExtResource( 15 )
 
 

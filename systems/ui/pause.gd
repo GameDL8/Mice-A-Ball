@@ -24,7 +24,6 @@ func _ready():
 	title = get_node("Panel/menu/title")
 	panel = get_node("Panel")
 	menu = get_node("Panel/menu")
-	restart = get_node("Panel/menu/options/restart")
 	music = get_node("Panel/menu/options/music")
 	sfx = get_node("Panel/menu/options/sfx")
 	quit = get_node("Panel/menu/options/quit")
@@ -59,11 +58,6 @@ func unpause():
 func quit_to_main_menu():
 	unpause()
 	GameManager.to_main_menu()
-
-func _on_restart_pressed():
-	get_tree().reload_current_scene()
-#	load_and_goto_scene(Globals.get("current_level_res_path"))
-	pass # replace with function body
 
 func goto_scene(scene):
 	var s = scene.instance()

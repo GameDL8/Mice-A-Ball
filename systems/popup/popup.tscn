@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://systems/popup/popup.gd" type="Script" id=1]
+[ext_resource path="res://res/ui/new-ui/graphics_square-menu.png" type="Texture" id=2]
+[ext_resource path="res://systems/ui/Theme.thm" type="Theme" id=3]
+
+[node name="popup" type="Node"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="Patch9Frame" type="Patch9Frame" parent="."]
+
+margin/right = 512.0
+margin/bottom = 256.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+texture = ExtResource( 2 )
+patch_margin/left = 22
+patch_margin/top = 19
+patch_margin/right = 20
+patch_margin/bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 608.0
+margin/top = 332.0
+margin/right = 162.0
+margin/bottom = 138.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+bbcode/enabled = true
+bbcode/bbcode = "It [size=14]g[/size][size=18]r[/size][size=22]o[/size][size=26]o[/size][size=28]w[/size][size=32]s[/size]!!!"
+visible_characters = -1
+
+

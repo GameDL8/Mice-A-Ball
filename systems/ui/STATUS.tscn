@@ -87,7 +87,7 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 4 )
-text = "Score:"
+text = "Score: "
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -102,13 +102,13 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 4 )
-text = "Time"
+text = "Time: "
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="total_time" type="Label" parent="Panel/menu/options"]
+[node name="ranking" type="Label" parent="Panel/menu/options"]
 
 margin/top = 58.0
 margin/right = 199.0
@@ -117,7 +117,7 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 4 )
-text = "Total time:"
+text = "Ranking: "
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -179,11 +179,15 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 4 )
-text = "Next Level!"
+text = "Restart"
 align = 1
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[connection signal="pressed" from="Panel/menu/options/next_level" to="." method="_on_next_level_pressed"]
+
+[connection signal="pressed" from="Panel/menu/options/restart" to="." method="_on_restart_pressed"]
 
 

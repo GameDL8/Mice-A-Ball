@@ -1,20 +1,25 @@
 extends CanvasLayer
 var time
-var total_time
 var score
+var ranking
 var next_level
 var restart
 var panel
+var level
 func _ready():
+	add_user_signal("can_continue")
 	score = get_node("Panel/menu/options/score")
 	time = get_node("Panel/menu/options/time")
-	total_time = get_node("Panel/menu/options/total_time")
+	ranking = get_node("Panel/menu/options/ranking")
 	next_level = get_node("Panel/menu/options/next_level")
 	restart = get_node("Panel/menu/options/restart")
 	panel = get_node("Panel")
 	panel.hide()
+	GameManager.load_game()
+	set_process_input(true)
 
 func update():
+	GameManager.get_level_file_name()
 #	Time	
 	var hours = GameManager.time["seconds"]/3600 # Convert to hours
 	var minutes = (hours%1)*60
@@ -26,19 +31,55 @@ func update():
 	if minutes >= 60:
 		minutes-=60
 		hours+=1
-	GameManager.total_time["hours"]+=hours
-	GameManager.total_time["minutes"]+=minutes
-	GameManager.total_time["seconds"]+=seconds
 	
 	#Adding new time to total_time:
-	if GameManager.total_time["seconds"]>=60:
-		GameManager.total_time["seconds"] -=60
-		GameManager.total_time["minutes"]+=1
+	if seconds >=60:
+		seconds -=60
+		minutes +=1
 	#Adding score to total score:
-	GameManager.total_score += GameManager.score
-	
-func display():
+	if GameManager.times_played_by_level[get_level_by_index(0)] > 5 and GameManager.times_played_by_level[get_level_by_index(0)] > GameManager.times_played_by_level[get_level_by_index(1)]*1.5:
+		if not GameManager.achievements["noob_cat"]:
+			GameManager.ranking = "Noob Cat"
+			GameManager.achievements["noob_cat"] = true
+			
+	elif GameManager.times_played_by_level[get_level_by_index(0)] > 100 and GameManager.total_time["seconds"] > 7200:
+			GameManager.ranking = "Nyandertal"
+			GameManager.achievements["nyandertal"] = true
+		
+
+#	GameManager.ranking
+
+func _input(ev):
+	if (CONST.DEBUG):
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_0 && ev.pressed:
+			display()
+
+
+func show():
 	update()
 	panel.show()
-	score.set_text(score.get_text()+ str(GameManager.score))
-	time.set_text(time.get_text()+ str(GameManager.time["minutes"])+":"+str(GameManager.time["seconds"]))
+	score.set_text("score: "+ str(GameManager.score))
+	time.set_text("Time: "+ str(GameManager.time["minutes"])+":"+str(GameManager.time["seconds"]))
+	ranking.set_text("Ranking: "+GameManager.ranking)
+
+func hide():
+	panel.hide()
+
+func get_level_by_index(index):
+	var level = GameManager.levels[index].split("/")
+	level = level[level.size()-1].split(".")[0]
+	print("level on status function =",level)
+	return level
+
+func _on_next_level_pressed():
+	GameManager.current_level+=1
+	emit_signal("can_continue")
+	hide()
+	pass
+
+
+func _on_restart_pressed():
+	Globals.get("current_level").restart()
+	emit_signal("can_continue")
+	hide()
+	pass

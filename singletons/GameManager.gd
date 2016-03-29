@@ -16,13 +16,19 @@ var total_scores_by_level = {}
 var mices_killed_by_level = {}
 var times_cheated = 0
 var mices_killed_in_currenct_level = 0
-var ranking ="Noob Cat"
+var ranking ="Cute little Kitten"
 
 #Achievements are set here and loaded dinamically by the program, if you
 # want to create one, just add it here and set its default value to false
 var achievements = {
 	"pur":false,
-	"noob_cat":false}
+	"noob_cat":false,
+	"this_shouldnt_be_here":false,
+	"nyandertal": false,
+	"smelly_cats":false,
+	"all_cats_go_to_heaven":false,
+	"thundercat":false,
+	}
 const levels = [
 "res://levels/level1/level1.tscn",
 "res://levels/level2/level2.tscn"
@@ -109,8 +115,6 @@ func load_game():
 func advance_level():
 	var level = get_level_file_name()
 	print(level)
-	
-	current_level+=1
 	consecutive_loss = 0
 	total_scores_by_level[level]+=level_score
 	times_played_by_level[level] += 1
@@ -119,12 +123,13 @@ func advance_level():
 	total_time.minutes += time.minutes
 	total_time.seconds += time.seconds
 	save_game()
-	
+	STATUS.show()
+	yield(STATUS,"can_continue")
 	# All status related to the level when the player wins should be updated before
 	#the next line:
 	Globals.set("level_file_path",levels[current_level])
 	level_score = 0
-	mices_killed_in_currenct_level
+	mices_killed_in_currenct_level = 0
 	time = {"hours":0,"minutes":0,"seconds":0}
 	if current_level < levels.size():
 		get_tree().change_scene(levels[current_level])

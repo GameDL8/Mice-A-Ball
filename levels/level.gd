@@ -92,12 +92,16 @@ func _ready():
 func restart():
 	for path in paths:
 		path.cleared=false
+	GameManager.level_score = 0
+	GameManager.score = 0
 	HUD.initialize_level(level_name,score_to_win)
+	HUD.score_label.set_text(str(GameManager.level_score))
 	direction=CONST.DIR_FORWARD
 	state=CONST.STATE_PLAYING
 	set_fixed_process(true)
 	set_process_input(true)
 	Globals.get("player").set_process_input(true)
+	GameManager.time = {"hours":0,"minutes":0,"seconds":0}
 
 #region updaters
 func _input(ev):
@@ -178,7 +182,7 @@ func _fixed_process(delta):
 					GameManager.add_score(100)
 					yield(t,"timeout")
 					path.cleared_pos+=CONST.MIN_SEPARATION
-			t.set_wait_time(5)
+			t.set_wait_time(1)
 			HUD.show()
 			t.start()
 			yield(t,"timeout")
@@ -260,4 +264,4 @@ func on_ball_inserted(ball,path):
 
 func _on_player_timer_timeout():
 	GameManager.time["seconds"]+=1
-	pass # replace with function body
+	pass
