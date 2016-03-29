@@ -9,4 +9,6 @@ func _ready():
 
 func restart():
 	yield (get_node("AnimationPlayer"),"finished")
+	GameManager.achievements["has_seen_credits"] = true
+	GameManager.save_game()
 	GameManager.to_main_menu()

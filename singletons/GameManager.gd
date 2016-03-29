@@ -28,6 +28,7 @@ var achievements = {
 	"smelly_cats":false,
 	"all_cats_go_to_heaven":false,
 	"thundercat":false,
+	"has_seen_credits": false
 	}
 const levels = [
 "res://levels/level1/level1.tscn",
@@ -53,6 +54,7 @@ func new_game():
 	Globals.set("level_file_path",levels[current_level])
 	print(Globals.get("level_file_path"))
 	HUD.score_label.set_text("0")
+	HUD.lives_label.set_text(lives)
 	get_tree().change_scene(levels[0])
 	HUD.show()
 	time = {"hours":0,"minutes":0,"seconds":0}
