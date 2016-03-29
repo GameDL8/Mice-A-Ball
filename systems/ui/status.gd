@@ -36,7 +36,7 @@ func update():
 	if seconds >=60:
 		seconds -=60
 		minutes +=1
-	#Adding score to total score:
+
 	if GameManager.times_played_by_level[get_level_by_index(0)] > 5 and GameManager.times_played_by_level[get_level_by_index(0)] > GameManager.times_played_by_level[get_level_by_index(1)]*1.5:
 		if not GameManager.achievements["noob_cat"]:
 			GameManager.ranking = "Noob Cat"
@@ -45,6 +45,10 @@ func update():
 	elif GameManager.times_played_by_level[get_level_by_index(0)] > 100 and GameManager.total_time["seconds"] > 7200:
 			GameManager.ranking = "Nyandertal"
 			GameManager.achievements["nyandertal"] = true
+	
+	elif GameManager.time["seconds"] < 300:
+			GameManager.ranking = "Thunder-Cat"
+			GameManager.achievements["thundercat"] = true
 		
 
 #	GameManager.ranking
