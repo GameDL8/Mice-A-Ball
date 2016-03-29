@@ -181,6 +181,7 @@ func get_level_file_name():
 	var level = Globals.get("level_file_path")
 	level = level.split("/")
 	print("This is level_file_path: ", level)
-	return level[level.size()-1].split(".")[0]func alert_color_cleared(col):
+	return level[level.size()-1].split(".")[0]
+func alert_color_cleared(col):
 	if balls_type[col] == 0:
 		emit_signal("color_cleared", col);
