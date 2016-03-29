@@ -54,7 +54,7 @@ func new_game():
 	Globals.set("level_file_path",levels[current_level])
 	print(Globals.get("level_file_path"))
 	HUD.score_label.set_text("0")
-	HUD.lives_label.set_text(lives)
+	HUD.lives_label.set_text(str(lives))
 	get_tree().change_scene(levels[0])
 	HUD.show()
 	time = {"hours":0,"minutes":0,"seconds":0}
@@ -132,12 +132,14 @@ func advance_level():
 	yield(STATUS,"can_continue")
 	# All status related to the level when the player wins should be updated before
 	#the next line:
-	Globals.set("level_file_path",levels[current_level])
+	if current_level == levels.size():
+		game_over()
 	level_score = 0
 	mices_killed_in_currenct_level = 0
 	time = {"hours":0,"minutes":0,"seconds":0}
 	if current_level < levels.size():
 		get_tree().change_scene(levels[current_level])
+		Globals.set("level_file_path",levels[current_level])	
 	else:
 		get_tree().change_scene("res://systems/game_over/game_over.tscn")
 

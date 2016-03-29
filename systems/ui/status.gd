@@ -6,6 +6,10 @@ var next_level
 var restart
 var panel
 var level
+var hours = 0
+var minutes = 0
+var seconds = 0
+
 func _ready():
 	add_user_signal("can_continue")
 	score = get_node("Panel/menu/options/score")
@@ -21,9 +25,9 @@ func _ready():
 func update():
 	GameManager.get_level_file_name()
 #	Time	
-	var hours = GameManager.time["seconds"]/3600 # Convert to hours
-	var minutes = (hours%1)*60
-	var seconds = (minutes%1)*60
+	hours = GameManager.time["seconds"]/3600 # Convert to hours
+	minutes = (hours%1)*60
+	seconds = (minutes%1)*60
 	if seconds >=60:
 		seconds -=60
 		minutes+=1
@@ -63,7 +67,7 @@ func show():
 	update()
 	panel.show()
 	score.set_text("score: "+ str(GameManager.score))
-	time.set_text("Time: "+ str(GameManager.time["minutes"])+":"+str(GameManager.time["seconds"]))
+	time.set_text("Time: "+ str(minutes)+":"+str(seconds))
 	ranking.set_text("Ranking: "+GameManager.ranking)
 
 func hide():

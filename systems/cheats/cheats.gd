@@ -2,6 +2,7 @@ extends Node2D
 
 var combinations =[
 ["ui_up","ui_up","ui_down","ui_down","ui_left","ui_right","ui_left","ui_right"],
+["ui_up","ui_up","ui_down","ui_right","ui_left"]
 ]
 
 #var combinations =[
@@ -23,6 +24,7 @@ func _input(ev):
 					call("cheat_"+str(i))
 					GameManager.times_cheated+=1 #For status
 					print("cheat enabled: "+str(i))
+					print("You cheater!")
 					states[i]=0
 			else:
 				states[i]=0
@@ -30,3 +32,8 @@ func _input(ev):
 func cheat_0():
 	CONST.DEBUG = !CONST.DEBUG
 	print("Debug Mode: "+str(CONST.DEBUG))
+
+func cheat_1():
+	GameManager.lives +=1
+	HUD.lives_label.set_text(str(GameManager.lives))
+	print("Added one life: "+str(CONST.DEBUG))
