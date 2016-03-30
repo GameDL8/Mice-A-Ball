@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
-[ext_resource path="res://res/backgrounds/kitchen_background.jpg" type="Texture" id=2]
-[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=4]
+[ext_resource path="res://res/backgrounds/kitchen_background.png" type="Texture" id=2]
+[ext_resource path="res://res/backgrounds/kitchen_foreground.png" type="Texture" id=3]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=5]
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
-_data = { "points":Vector2Array( 0, 0, 0, 0, 67.8664, 694.972, -5.04713, 74.0227, 21.0195, -99.2207, 560.962, 626.142, 58.0115, 28.8338, -27.9495, -75.2798, 247.276, 571.981, -19.0069, 64.2858, 5.93917, -27.934, 217.939, 188.336, -42.3237, -13.5761, 24.317, 7.89847, 327.39, 158.999, 7.98544, -40.2375, 26.5549, 36.04, 360.113, 228.958, -24.3824, -23.7877, 51.4792, 40.6822, 536.138, 259.423, -45.5691, -42.1305, 63.0339, 16.4886, 635.434, 487.353, -26.7989, -13.6402, 28.8426, 23.4904, 736.987, 513.306, -43.5036, 18.7861, 60.2915, 16.1244, 766.324, 653.223, -57.2469, -9.66954, 137.479, 1.2959, 793.405, 518.947, 0.594694, 66.3083, 5.85838, -104.41, 975.072, 399.341, 24.7115, -35.202, -30.895, 21.1733, 873.519, 301.173, 36.0777, -24.1616, -74.5455, 25.5172, 846.438, 483.968, 16.3541, 33.8975, -11.002, -46.8725, 734.73, 404.983, -26.5177, 53.9011, 30.8125, -44.8472, 757.279, 188.897, 0, 0, 0, 0, 794.949, 21.6641 ) }
+_data = { "points":Vector2Array( 0, 0, 0, 0, 32.3372, 94.6237, -158.796, -28.4764, 91.8645, 46.9913, 1126.88, 181.658, 0, 0, -55.8383, 83.8808, 1131.63, 526.965, 0, 0, -323.613, 29.712, 513.093, 588.909, 0, 0, 0, 0, 169.43, 388.31, 0, 0, 8.67507, -108.695, 159.03, 222.657, 0, 0, 0, 0, 547.449, 191.826, 0, 0, 140.136, -3.92865, 1065.98, 250.707, 0, 0, -150.084, 126.213, 978.316, 499.463, 0, 0, 0, 0, 783.825, 390.7, 0, 0, 0, 0, 779.948, 337.713 ) }
 
 [node name="level" type="Node2D"]
 
@@ -18,29 +19,30 @@ level_name = "KITCHEN 2"
 score_to_win = 3000
 colors = 7
 color_generator_amounts = null
-SPEED = 60
+SPEED = 75
 wait_time = 3
 
 [node name="bg" type="Sprite" parent="."]
 
-transform/pos = Vector2( 640, 360 )
+transform/pos = Vector2( 640, 359.098 )
 texture = ExtResource( 2 )
 
 [node name="fg" type="Sprite" parent="bg"]
 
 z/z = 5
+texture = ExtResource( 3 )
 
 [node name="Path2D" type="Path2D" parent="."]
 
 curve = SubResource( 1 )
 
-[node name="player" parent="." instance=ExtResource( 3 )]
+[node name="player" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 445.845, 369.078 )
+transform/pos = Vector2( 372.845, 368.078 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 4 )
+stream/stream = ExtResource( 5 )
 stream/play = true
 stream/loop = true
 stream/volume_db = 0.0
