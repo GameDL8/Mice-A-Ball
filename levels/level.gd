@@ -6,8 +6,13 @@ export(String) var level_name = "KITCHEN"
 export(int) var score_to_win = 1000
 export(int,FLAGS,"Red,Green,Blue,Yellow") var colors = 7
 export(IntArray) var color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6] #BugDetected: IntArray can't have a default value
+# The speed which the balls will go during a level
 export (int) var SPEED
+# Time in seconds that the player will have to wait at the start of
+# the level for balls to go along the path before having the control
 export (int) var wait_time = 3
+var wait_timer
+var has_waited = false
 
 var state = CONST.STATE_PLAYING
 var chain_bonus = 0
@@ -16,7 +21,6 @@ var direction = CONST.DIR_FORWARD
 var timer
 var time_scale = 1
 
-#TimerP
 var player_timer
 
 #region subclasses
@@ -82,6 +86,19 @@ func _ready():
 	timer.set_one_shot(true)
 	timer.set_wait_time(0.2)
 	add_child(timer)
+	
+	#Ignore input at the start:
+	GameManager.ignore_input = true
+	
+	#Wait timer
+	wait_timer = Timer.new()
+	wait_timer.set_autostart(true)
+	wait_timer.set_one_shot(true)
+	wait_timer.set_wait_time(wait_time)
+	add_child(wait_timer)
+	wait_timer.connect("timeout",self,"on_wait_timer_timeout")
+	
+	
 	#timer for counting playtime:
 	player_timer = Timer.new()
 	player_timer.set_autostart(true)
@@ -89,6 +106,8 @@ func _ready():
 	add_child(player_timer)
 	player_timer.start()
 	player_timer.connect("timeout",self,"_on_player_timer_timeout")
+
+
 func restart():
 	for path in paths:
 		path.cleared=false
@@ -102,6 +121,10 @@ func restart():
 	set_process_input(true)
 	Globals.get("player").set_process_input(true)
 	GameManager.time = {"hours":0,"minutes":0,"seconds":0}
+	has_waited = false
+	wait_timer.set_wait_time(wait_time)
+	wait_timer.start()
+	GameManager.ignore_input = true
 
 #region updaters
 func _input(ev):
@@ -128,6 +151,9 @@ func _input(ev):
 
 func _fixed_process(delta):
 	delta*=time_scale
+	# Handles the wait time
+	if wait_time > 0 and not has_waited:
+		time_scale = 10
 	if state in [CONST.STATE_PLAYING,CONST.STATE_SCORED]:
 		# Code to detect ball types will only start when score is greater than score_to_win
 		
@@ -266,3 +292,9 @@ func on_ball_inserted(ball,path):
 func _on_player_timer_timeout():
 	GameManager.time["seconds"]+=1
 	pass
+func on_wait_timer_timeout():
+	has_waited = true
+	GameManager.time["seconds"]=0
+	time_scale = 1
+	GameManager.ignore_input = false
+	
