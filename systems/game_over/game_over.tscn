@@ -38,8 +38,8 @@ tracks/2/interp = 1
 tracks/2/keys = { "cont":true, "times":FloatArray( 0, 2 ), "transitions":FloatArray( 1, 1 ), "values":[ 1.0, 0.5 ] }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Credits:transform/pos")
-tracks/3/interp = 1
-tracks/3/keys = { "cont":true, "times":FloatArray( 0, 8, 107.2 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -2400 ) ] }
+tracks/3/interp = 2
+tracks/3/keys = { "cont":true, "times":FloatArray( 8, 105 ), "transitions":FloatArray( 1, 1 ), "values":[ Vector2( 0, 0 ), Vector2( 0, -2800 ) ] }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Credits/Score:visibility/self_opacity")
 tracks/4/interp = 1
@@ -102,7 +102,7 @@ autoplay = "game_over"
 
 [node name="Credits" type="Node2D" parent="."]
 
-transform/pos = Vector2( 0, -2400 )
+transform/pos = Vector2( 0, -2800 )
 
 [node name="GameOver" type="Label" parent="Credits"]
 
@@ -152,9 +152,9 @@ anchor/top = 3
 anchor/right = 1
 anchor/bottom = 3
 margin/left = 7.0
-margin/top = -986.0
+margin/top = -726.0
 margin/right = -1208.0
-margin/bottom = -3007.0
+margin/bottom = -3514.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -162,7 +162,7 @@ size_flags/vertical = 2
 custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode/enabled = true
-bbcode/bbcode = "[center][b]Programing:[/b]\n\nMariano Suligoy\nBruno SXS\n\n\n\n\n[b]Ilustrations:[/b]\n\nElias Navarro\n\n\n\n\n[b]Aditional Graphics:[/b]\n\nBruno SXS\n\n\n\n\n[b]Graphics Adaptations:[/b]\n\nMariano Suligoy\n\n\n\n\n\n[b]Special Thanks:[/b]\n\nKenney\nhttp://opengameart.org/users/kenney\n(UI Graphics)\n\nJason Dagenet\nhttp://opengameart.org/users/jdagenet\n(Music)\n\nJayvee Enaguas\nhttp://harvettfox96.deviantart.com/\n(Dimbo font)\n\nAvgvsta\nhttp://opengameart.org/users/avgvsta\n(This GameOver Music)\n\nAND MANY OTHER ANONIMOUS RESOURCES!\n\n\n\n\n\n\nProudly made with\n\n[img]res://godot-engine.png[/img]\n\n[/center]"
+bbcode/bbcode = "[center][b]Created by[/b]\n\n[img]res://res/logo_gamedl8.png[/img]\n\n[b]GameDL8 is:[/b][center]\nMariano Suligoy and Bruno SXS\n\n[center][b]Programing:[/b]\n\nMariano Suligoy\nBruno SXS\n\n\n\n\n[b]Ilustrations:[/b]\n\nElias Navarro\n\n\n\n\n[b]Aditional Graphics:[/b]\n\nBruno SXS\n\n\n\n\n[b]Graphics Adaptations:[/b]\n\nMariano Suligoy\n\n\n\n\n\n[b]Special Thanks:[/b]\n\nKenney\nhttp://opengameart.org/users/kenney\n(UI Graphics)\n\nJason Dagenet\nhttp://opengameart.org/users/jdagenet\n(Music)\n\nJayvee Enaguas\nhttp://harvettfox96.deviantart.com/\n(Dimbo font)\n\nAvgvsta\nhttp://opengameart.org/users/avgvsta\n(This GameOver Music)\n\nAND MANY OTHER ANONIMOUS RESOURCES!\n\n\n\n\n\n\nProudly made with\n\n[img]res://godot-engine.png[/img]\n\n[/center]"
 visible_characters = -1
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]

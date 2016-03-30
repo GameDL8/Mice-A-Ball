@@ -155,7 +155,6 @@ func game_over():
 	HUD.hide()
 
 func to_intro():
-	save_game()
 	get_tree().change_scene("res://systems/intro/intro.tscn")
 	HUD.hide()
 
