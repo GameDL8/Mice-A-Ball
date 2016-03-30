@@ -51,7 +51,6 @@ func get_offset():
 func _ready():
 	sprite = get_node("mice")
 	anim = get_node("AnimationPlayer")
-	details = get_node("details")
 	set_color(color)
 	set_fixed_process(true)
 	pass
