@@ -29,6 +29,12 @@ func _input(ev):
 					states[i]=0
 			else:
 				states[i]=0
+				
+#	Global cehats
+	if CONST.DEBUG:
+#		Go to intro by pressing I
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_I && ev.pressed:
+			GameManager.to_intro()
 
 func cheat_0():
 	CONST.DEBUG = !CONST.DEBUG
