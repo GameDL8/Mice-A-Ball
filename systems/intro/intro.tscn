@@ -19,7 +19,7 @@ border_size = 0
 border_blend = true
 draw_bg = true
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 resource/name = "appear"
 length = 3.0
@@ -30,7 +30,7 @@ tracks/0/path = NodePath(".:transform/pos")
 tracks/0/interp = 1
 tracks/0/keys = { "cont":true, "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "values":[ Vector2( 248, 898 ), Vector2( 248, 653 ) ] }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 
 resource/name = "fall_down"
 length = 2.5
@@ -68,9 +68,8 @@ tracks/2/path = NodePath(".:transform/rot")
 tracks/2/interp = 1
 tracks/2/keys = { "cont":true, "times":FloatArray( 0, 0.6 ), "transitions":FloatArray( 1, 1 ), "values":[ 90.0, 0.0 ] }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 
-resource/name = "default"
 length = 5.0
 loop = false
 step = 0.1
@@ -108,7 +107,6 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="gamedl8" type="RichTextLabel" parent="Panel"]
 
-visibility/opacity = 0.0
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -131,6 +129,7 @@ visible_characters = -1
 
 [node name="godot" type="RichTextLabel" parent="Panel"]
 
+visibility/opacity = 0.0
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -163,8 +162,8 @@ script/script = ExtResource( 5 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/appear = SubResource( 3 )
-anims/fall_down = SubResource( 5 )
+anims/appear = SubResource( 2 )
+anims/fall_down = SubResource( 3 )
 anims/roll = SubResource( 4 )
 playback/active = true
 playback/speed = 1.0
@@ -176,7 +175,7 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/default = SubResource( 2 )
+anims/default = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

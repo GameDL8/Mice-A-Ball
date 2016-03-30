@@ -17,7 +17,7 @@ func restart():
 	yield (get_node("AnimationPlayer"),"finished")
 	GameManager.achievements["has_seen_credits"] = true
 	GameManager.save_game()
-	GameManager.to_main_menu()
+	GameManager.to_intro()
 	
 func _input(ev):
 	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == 1 and ev.pressed:

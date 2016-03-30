@@ -154,6 +154,11 @@ func game_over():
 	get_tree().change_scene("res://systems/game_over/game_over.tscn")
 	HUD.hide()
 
+func to_intro():
+	save_game()
+	get_tree().change_scene("res://systems/intro/intro.tscn")
+	HUD.hide()
+
 func on_lose():
 	var level = get_level_file_name()
 	loss_by_level[level] += 1
