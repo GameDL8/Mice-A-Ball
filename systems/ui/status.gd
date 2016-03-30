@@ -24,23 +24,11 @@ func _ready():
 
 func update():
 	GameManager.get_level_file_name()
-#	Time	
-	hours = GameManager.time["seconds"]/3600 # Convert to hours
-	minutes = (hours%1)*60
-	seconds = (minutes%1)*60
-	if seconds >=60:
-		seconds -=60
-		minutes+=1
+#	Time
+	minutes = GameManager.time["seconds"]/60 # Convert to minutes
+	hours = minutes/60 # Convert to hours
+	seconds = GameManager.time["seconds"]%60
 	
-	if minutes >= 60:
-		minutes-=60
-		hours+=1
-	
-	#Adding new time to total_time:
-	if seconds >=60:
-		seconds -=60
-		minutes +=1
-
 	if GameManager.times_played_by_level[get_level_by_index(0)] > 5 and GameManager.times_played_by_level[get_level_by_index(0)] > GameManager.times_played_by_level[get_level_by_index(1)]*1.5:
 		if not GameManager.achievements["noob_cat"]:
 			GameManager.ranking = "Noob Cat"
