@@ -3,6 +3,8 @@ extends Sprite
 var anim
 var modifier = 0
 func _ready():
+	randomize()
+	set_texture(CONST.colors[randi() % CONST.colors.size()])
 	if GameManager.achievements["has_seen_credits"]:
 		modifier = 4
 	anim = get_node("anim")
