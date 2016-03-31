@@ -17,9 +17,9 @@ _data = { "points":Vector2Array( 0, 0, 0, 0, 1238.27, 118.595, 0, 0, 0, 0, 1154.
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
-level_name = "ROOM"
-score_to_win = 4000
-colors = 7
+level_name = "WELCOME HOME, BOY"
+score_to_win = 3000
+colors = 15
 color_generator_amounts = null
 SPEED = 75
 wait_time = 3
