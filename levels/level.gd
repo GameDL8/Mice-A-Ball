@@ -112,7 +112,6 @@ func restart():
 	for path in paths:
 		path.cleared=false
 	GameManager.level_score = 0
-	GameManager.score = 0
 	HUD.initialize_level(level_name,score_to_win)
 	HUD.score_label.set_text(str(GameManager.level_score))
 	direction=CONST.DIR_FORWARD

@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://res/backgrounds/kitchen_background.png" type="Texture" id=2]
 [ext_resource path="res://res/backgrounds/kitchen_foreground.png" type="Texture" id=3]
-[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=5]
+[ext_resource path="res://res/objects/table.png" type="Texture" id=4]
+[ext_resource path="res://res/objects/kitchen_sink.png" type="Texture" id=5]
+[ext_resource path="res://res/objects/cooker.png" type="Texture" id=6]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=8]
 
 [sub_resource type="Curve2D" id=1]
 
 bake_interval = 5.0
-_data = { "points":Vector2Array( 0, 0, 0, 0, 32.3372, 94.6237, -158.796, -28.4764, 91.8645, 46.9913, 1126.88, 181.658, 0, 0, -55.8383, 83.8808, 1131.63, 526.965, 0, 0, -323.613, 29.712, 513.093, 588.909, 0, 0, 0, 0, 169.43, 388.31, 0, 0, 8.67507, -108.695, 159.03, 222.657, 0, 0, 0, 0, 547.449, 191.826, 0, 0, 140.136, -3.92865, 1065.98, 250.707, 0, 0, -150.084, 126.213, 978.316, 499.463, 0, 0, 0, 0, 783.825, 390.7, 0, 0, 0, 0, 779.948, 337.713 ) }
+_data = { "points":Vector2Array( 0, 0, 0, 0, 32.3372, 94.6237, -690.652, -20.3119, 91.8645, 46.9913, 1108.77, 188.966, 0, 0, -55.8383, 83.8808, 1086.85, 518.071, 0, 0, -458.797, -38.98, 556.837, 515.217, 0, 0, 0, 0, 145.804, 341.843, 0, 0, 27.6225, -57.116, 138.237, 221.039, 0, 0, 0, 0, 554.444, 217.395, 0, 0, 140.136, -3.92865, 1065.98, 250.707, 0, 0, -256.057, 64.1799, 975.847, 490.558, 0, 0, 0, 0, 783.825, 390.7, 0, 0, 0, 0, 788.206, 357.17 ) }
 
 [node name="level" type="Node2D"]
 
@@ -32,17 +35,40 @@ texture = ExtResource( 2 )
 z/z = 5
 texture = ExtResource( 3 )
 
+[node name="table" type="Sprite" parent="bg/fg"]
+
+transform/pos = Vector2( 336.609, -152.132 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+flip_v = true
+
+[node name="kitchen_sink" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( -369.491, 229.868 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+flip_h = true
+flip_v = true
+
+[node name="cooker" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( -131.117, 237.186 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+flip_v = true
+
 [node name="Path2D" type="Path2D" parent="."]
 
 curve = SubResource( 1 )
 
-[node name="player" parent="." instance=ExtResource( 4 )]
+[node name="player" parent="." instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 372.845, 368.078 )
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 5 )
+stream/stream = ExtResource( 8 )
 stream/play = true
 stream/loop = true
 stream/volume_db = 0.0

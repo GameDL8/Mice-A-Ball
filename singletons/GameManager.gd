@@ -34,7 +34,8 @@ var achievements = {
 const levels = [
 "res://levels/level1/level1.tscn",
 "res://levels/level2/level2.tscn",
-"res://levels/level3/level3.tscn"
+"res://levels/level3/level3.tscn",
+"res://levels/level4/level4.tscn"
 ]
 var current_level = 0
 var balls_type=[0,0,0,0]
@@ -65,7 +66,6 @@ func save_game():
 	print(save_file)
 	print("Level filename: ",str(get_level_file_name()))
 	save_game = ConfigFile.new()
-	save_game.load(save_file)
 	save_game.set_value("player","total_score",total_score)
 	save_game.set_value("player","ranking",ranking)
 	save_game.set_value("player","hours",total_time.hours)
@@ -77,7 +77,6 @@ func save_game():
 #		Achievements:
 	for key in achievements:
 		save_game.set_value("achievements", key, achievements[key])
-		save_game.save(save_file)
 #	Loop to get the times played on a level	
 	for level in levels:
 		# First it splits each path of the levels array using / as an separator
@@ -89,12 +88,15 @@ func save_game():
 		save_game.set_value("mices_killed_by_level",level_name,mices_killed_by_level[level_name])
 		save_game.set_value("loss_by_level",level_name,loss_by_level[level_name])
 		save_game.set_value("total_scores_by_level",level_name,total_scores_by_level[level_name])
-	pass
+		save_game.save(save_file)
 
 func load_game():
 	print(save_file)
 	save_game = ConfigFile.new()
 	save_game.load(save_file)
+	if !save_game.has_section_key("config","initialization"):
+		save_game.set_value("config","initialization",true)
+		save_game.save(save_file)
 	total_score = save_game.get_value("player","total_score",0)
 	ranking = save_game.get_value("player","ranking","Noob Cat")
 	total_time.hours = save_game.get_value("player","hours",0)
@@ -115,9 +117,9 @@ func load_game():
 		# Then it does its magic:
 		times_played_by_level[level_name] = save_game.get_value("times_played_by_level",level_name,0)
 		mices_killed_by_level[level_name] = save_game.get_value("mices_killed_by_level",level_name,0)
+
 		loss_by_level[level_name] = save_game.get_value("loss_by_level",level_name,0)
 		total_scores_by_level[level_name] = save_game.get_value("total_scores_by_level",level_name,0)
-	pass
 
 func advance_level():
 	var level = get_level_file_name()

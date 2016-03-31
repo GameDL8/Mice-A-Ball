@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://levels/level.gd" type="Script" id=1]
+[ext_resource path="res://res/backgrounds/room_background.png" type="Texture" id=2]
+[ext_resource path="res://res/backgrounds/room_foreground.png" type="Texture" id=3]
+[ext_resource path="res://res/objects/table.png" type="Texture" id=4]
+[ext_resource path="res://res/objects/cabinet.png" type="Texture" id=5]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=7]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = { "points":Vector2Array( 0, 0, 0, 0, 1238.27, 118.595, 0, 0, 0, 0, 1154.7, 131.749, 0, 0, -124.824, -8.79044, 275.344, 101.588, 0, 0, 315.488, -30.1132, 148.367, 171.323, 0, 0, -28.6395, 67.3028, 476.289, 290.177, -93.1787, 35.1618, 87.8951, -16.5408, 811.561, 331.898, 0, 0, 43.9522, -61.5331, 920.562, 247.51, 0, 0, 137.131, 21.0971, 1089.34, 229.929, 0, 0, -54.5007, 98.4529, 1080.55, 425.076, 0, 0, 0, 0, 948.692, 421.56, 0, 0, 0, 0, 786.948, 386.399, 0, 0, -159.986, 63.2912, 530.267, 409.254, 0, 0, -87.9044, 77.3559, 234.908, 486.61, 0, 0, 0, 0, 477.524, 578.03, 0, 0, 0, 0, 938.143, 574.514, 0, 0, 0, 0, 1226.47, 586.821 ) }
+
+[node name="level" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+level_name = "ROOM"
+score_to_win = 4000
+colors = 7
+color_generator_amounts = null
+SPEED = 75
+wait_time = 3
+
+[node name="bg" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 359.098 )
+texture = ExtResource( 2 )
+
+[node name="fg" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( 1.75806, 0 )
+z/z = 5
+texture = ExtResource( 3 )
+
+[node name="table" type="Sprite" parent="bg/fg"]
+
+transform/pos = Vector2( 47.0452, -9.17332 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="kitchen_sink" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( -527.059, 3.22809 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="Path2D" type="Path2D" parent="."]
+
+curve = SubResource( 1 )
+
+[node name="player" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 262.845, 308.078 )
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 7 )
+stream/play = true
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+
