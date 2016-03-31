@@ -18,6 +18,7 @@ var times_cheated = 0
 var mices_killed_in_currenct_level = 0
 var ignore_input = false
 var ranking ="Cute little Kitten"
+var new_game_plus = false
 
 #Achievements are set here and loaded dinamically by the program, if you
 # want to create one, just add it here and set its default value to false

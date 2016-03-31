@@ -17,6 +17,8 @@ func restart():
 	yield (get_node("AnimationPlayer"),"finished")
 	GameManager.achievements["has_seen_credits"] = true
 	GameManager.save_game()
+	if GameManager.current_level == GameManager.levels.size():
+		GameManager.new_game_plus = !GameManager.new_game_plus
 	GameManager.to_intro()
 	
 func _input(ev):

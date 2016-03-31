@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://levels/level.gd" type="Script" id=1]
+[ext_resource path="res://res/backgrounds/kitchen_background_2.png" type="Texture" id=2]
+[ext_resource path="res://res/backgrounds/kitchen_foreground2.png" type="Texture" id=3]
+[ext_resource path="res://res/objects/table.png" type="Texture" id=4]
+[ext_resource path="res://res/objects/cabinet2.png" type="Texture" id=5]
+[ext_resource path="res://res/objects/kitchen_sink.png" type="Texture" id=6]
+[ext_resource path="res://res/objects/refrigerator.png" type="Texture" id=7]
+[ext_resource path="res://systems/player/player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://music/Is Anybody Home.ogg" type="AudioStream" id=9]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = { "points":Vector2Array( 0, 0, 0, 0, 50.3545, 126.968, 0, 0, 74.1, 2.85, 436.097, 141.126, 0, 0, 0, 0, 770.705, 210.737, -74.7368, 11.5789, 136.842, 17.8947, 919.368, 248.927, 0, 0, 15.7895, -3.15789, 1144.63, 213.138, 0, 0, 0, 0, 1154.16, 288.657, 34.9068, -79.3336, 1.58667, 155.494, 1127.86, 514.457, 0, 0, 0, 0, 787.109, 559.329, 112.654, 77.747, -19.0401, -139.627, 637.58, 511.284, -36.4935, 171.361, 31.7335, -133.281, 1026.32, 411.324, 10.1477, -5.82782, -72.8294, 5.6703, 440.089, 212.797, 38.9604, -344.799, 68.1806, 111.037, 196.587, 503.052, 0, 0, 0, 0, 629.047, 575.129, 0, 0, 0, 0, 642.811, 692.109 ) }
+
+[node name="level" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+level_name = "A MATTER OF PERSPEECTIVE"
+score_to_win = 2000
+colors = 7
+color_generator_amounts = null
+SPEED = 80
+wait_time = 2
+
+[node name="bg" type="Sprite" parent="."]
+
+transform/pos = Vector2( 640, 359.098 )
+texture = ExtResource( 2 )
+modulate = Color( 0.387579, 0.558594, 0.270569, 1 )
+
+[node name="fg" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( 0.17139, 0 )
+z/z = 5
+texture = ExtResource( 3 )
+modulate = Color( 0.384314, 0.556863, 0.266667, 1 )
+
+[node name="table" type="Sprite" parent="bg/fg"]
+
+transform/pos = Vector2( -495.144, -185.664 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+flip_h = true
+
+[node name="table1" type="Sprite" parent="bg/fg"]
+
+transform/pos = Vector2( -372.794, -219.72 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 4 )
+flip_h = true
+
+[node name="cabinet" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( -523.543, 168.488 )
+transform/rot = 90.0
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="kitchen_sink" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( 382.769, -218.417 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+flip_h = true
+
+[node name="refrigerator" type="Sprite" parent="bg"]
+
+transform/pos = Vector2( 152.903, -241.365 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="Path2D" type="Path2D" parent="."]
+
+curve = SubResource( 1 )
+
+[node name="player" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 554.845, 367.078 )
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 9 )
+stream/play = true
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+
