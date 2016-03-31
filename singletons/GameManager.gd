@@ -36,7 +36,8 @@ const levels = [
 "res://levels/level1/level1.tscn",
 "res://levels/level2/level2.tscn",
 "res://levels/level3/level3.tscn",
-"res://levels/level4/level4.tscn"
+"res://levels/level4/level4.tscn",
+"res://levels/level5/level5.tscn"
 ]
 var current_level = 0
 var balls_type=[0,0,0,0]
