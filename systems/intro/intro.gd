@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	get_tree().call_deferred("add_child",main_menu)
 	yield (anim,"finished")
-	GameManager.to_main_menu()
+	get_tree().change_scene("res://systems/main_menu/main_menu.tscn")
 
 
 
