@@ -17,7 +17,7 @@ var has_waited = false
 var state = CONST.STATE_PLAYING
 var chain_bonus = 0
 var paths = []
-var direction = CONST.DIR_FORWARD
+var direction
 var timer
 var time_scale = 1
 
@@ -62,10 +62,22 @@ func _init():
 	randomize()
 	Globals.set("current_level", self)
 	GameManager.score_to_win = score_to_win
-	if SPEED == null:
+	print(SPEED, " is the current level speed")
+	if SPEED == null or SPEED == 0:
 		SPEED = CONST.SPEED
+	else:
+		print("OK")
+
+	
+	if GameManager.new_game_plus:
+		direction = CONST.DIR_BACKWARD
+	elif not GameManager.new_game_plus:
+		direction = CONST.DIR_FORWARD
+		
 
 func _ready():
+	SPEED = SPEED * (1.0+(0.1*GameManager.times_finished))
+#	score_to_win = score_to_win * (1.0+(0.1*GameManager.times_finished))
 	HUD.initialize_level(level_name,score_to_win)
 	if color_generator_amounts == null: #BugDetected: IntArray can't have a default value
 		color_generator_amounts = [1,1,2,2,2,3,3,3,3,4,4,5,6]
@@ -114,7 +126,6 @@ func restart():
 	GameManager.level_score = 0
 	HUD.initialize_level(level_name,score_to_win)
 	HUD.score_label.set_text(str(GameManager.level_score))
-	direction=CONST.DIR_FORWARD
 	state=CONST.STATE_PLAYING
 	set_fixed_process(true)
 	set_process_input(true)

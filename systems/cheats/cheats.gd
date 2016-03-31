@@ -35,6 +35,9 @@ func _input(ev):
 #		Go to intro by pressing I
 		if ev.type == InputEvent.KEY && ev.scancode==KEY_I && ev.pressed:
 			GameManager.to_intro()
+		if ev.type == InputEvent.KEY && ev.scancode==KEY_N && ev.pressed:
+			GameManager.new_game_plus = !GameManager.new_game_plus
+			print("New Game Plus is :", GameManager.new_game_plus)
 
 func cheat_0():
 	CONST.DEBUG = !CONST.DEBUG

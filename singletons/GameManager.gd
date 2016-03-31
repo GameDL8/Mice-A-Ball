@@ -19,7 +19,8 @@ var mices_killed_in_currenct_level = 0
 var ignore_input = false
 var ranking ="Cute little Kitten"
 var new_game_plus = false
-
+#To add more difficulty as the player keeps beeting the game
+var times_finished = 1
 #Achievements are set here and loaded dinamically by the program, if you
 # want to create one, just add it here and set its default value to false
 var achievements = {
@@ -30,7 +31,8 @@ var achievements = {
 	"smelly_cats":false,
 	"all_cats_go_to_heaven":false,
 	"thundercat":false,
-	"has_seen_credits": false
+	"has_seen_credits": false,
+	"can't_stop": false
 	}
 const levels = [
 "res://levels/level1/level1.tscn",

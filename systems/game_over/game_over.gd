@@ -17,8 +17,15 @@ func restart():
 	yield (get_node("AnimationPlayer"),"finished")
 	GameManager.achievements["has_seen_credits"] = true
 	GameManager.save_game()
+#	The original New game plus was disabled due to time constrains	
+#	On its place, a system that keeps building the speed of the level
+#	by increments of 10% for each time the player finishes the game
+#	in a row was set. Those incremments are lost when the player quits
+#	the game.
 	if GameManager.current_level == GameManager.levels.size():
-		GameManager.new_game_plus = !GameManager.new_game_plus
+		GameManager.current_level = 0
+		GameManager.times_finished+=1
+#		GameManager.new_game_plus = !GameManager.new_game_plus
 	GameManager.to_intro()
 	
 func _input(ev):
