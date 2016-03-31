@@ -12,4 +12,9 @@ func _ready():
 
 func play():
 	if randi()%20 >10-modifier:
-		anim.play(anim.get_animation_list()[randi() % anim.get_animation_list().size()])
+		randomize()
+		var r_anim = randi() % anim.get_animation_list().size()
+		print(anim.get_animation_list())
+		print(anim.get_animation_list()[r_anim])
+		print(r_anim, anim.get_animation_list().size())
+		anim.play(anim.get_animation_list()[r_anim])

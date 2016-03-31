@@ -26,9 +26,7 @@ http://opengameart.org/users/jdagenet
 
 Avgvsta
 http://opengameart.org/users/avgvsta
-(This GameOver Music)
-
-AND MANY OTHER ANONIMOUS RESOURCES!
+(GameOver Music)
 
 Proudly made with
 

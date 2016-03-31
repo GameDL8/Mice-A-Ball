@@ -98,3 +98,7 @@ func _on_color_cleared(col):
 			curr_color = randi() % 4
 	self.next_color=next_color
 	self.curr_color=curr_color
+	
+func restart():
+	curr_color_sprite.show()
+	next_color_sprite.show()

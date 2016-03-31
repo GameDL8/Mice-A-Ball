@@ -130,6 +130,7 @@ func restart():
 	set_fixed_process(true)
 	set_process_input(true)
 	Globals.get("player").set_process_input(true)
+	Globals.get("player").restart()
 	GameManager.time = {"hours":0,"minutes":0,"seconds":0}
 	has_waited = false
 	wait_timer.set_wait_time(wait_time)

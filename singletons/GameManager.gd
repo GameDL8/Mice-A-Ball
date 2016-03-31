@@ -137,10 +137,12 @@ func advance_level():
 	total_time.seconds += time.seconds
 	save_game()
 	STATUS.show()
+	print("Current level value: ",current_level)
 	yield(STATUS,"can_continue")
 	# All status related to the level when the player wins should be updated before
 	#the next line:
 	if current_level == levels.size():
+		current_level+=1
 		game_over()
 	level_score = 0
 	mices_killed_in_currenct_level = 0
