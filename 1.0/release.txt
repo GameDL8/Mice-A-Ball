@@ -1,0 +1,3 @@
+RELEASED IN 2016/03/31
+
+Just in time for the deadline of Godot Game Jam March 2016
