@@ -20,7 +20,7 @@ var ignore_input = false
 var ranking ="Cute little Kitten"
 var new_game_plus = false
 #To add more difficulty as the player keeps beeting the game
-var times_finished = 1
+var times_finished = 0
 #Achievements are set here and loaded dinamically by the program, if you
 # want to create one, just add it here and set its default value to false
 var achievements = {
