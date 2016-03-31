@@ -32,8 +32,7 @@ AND MANY OTHER ANONIMOUS RESOURCES!
 
 Proudly made with
 
-
-
+![Godot Engine Logo](/godot-engine.png)
 ## Font
 Dimbo by [Jayvee Enaguas]
 (http://harvettfox96.deviantart.com)
