@@ -1,4 +1,4 @@
-extends Node2D
+extends SamplePlayer
 
 var combinations =[
 ["ui_up","ui_up","ui_down","ui_down","ui_left","ui_right","ui_left","ui_right"],
@@ -26,6 +26,7 @@ func _input(ev):
 					GameManager.times_cheated+=1 #For status
 					print("cheat enabled: "+str(i))
 					print("You cheater!")
+					play("cheat_enabled")
 					states[i]=0
 			else:
 				states[i]=0
